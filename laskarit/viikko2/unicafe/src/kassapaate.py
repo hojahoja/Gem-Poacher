@@ -4,37 +4,39 @@ class Kassapaate:
         self.edulliset = 0
         self.maukkaat = 0
 
-    def syo_edullisesti_kateisella(self, maksu):
-        if maksu >= 240:
-            self.kassassa_rahaa = self.kassassa_rahaa + 240
-            self.edulliset += 1
-            return maksu - 240
+    def kateismaksu(self, maksu, hinta, edullinen):
+        if maksu >= hinta:
+            self.kassassa_rahaa = self.kassassa_rahaa + hinta
+            if edullinen:
+                self.edulliset += 1
+            else:
+                self.maukkaat += 1
+            return maksu - hinta
         else:
             return maksu
+
+    def syo_edullisesti_kateisella(self, maksu):
+        return self.kateismaksu(maksu, 240, True)
 
     def syo_maukkaasti_kateisella(self, maksu):
-        if maksu >= 400:
-            self.kassassa_rahaa = self.kassassa_rahaa + 400
-            self.maukkaat += 1
-            return maksu - 400
+        return self.kateismaksu(maksu, 400, False)
+
+    def korttimaksu(self, kortti, hinta, edullinen):
+        if kortti.saldo >= hinta:
+            kortti.ota_rahaa(hinta)
+            if edullinen:
+                self.edulliset += 1
+            else:
+                self.maukkaat += 1
+            return True
         else:
-            return maksu
+            return False
 
     def syo_edullisesti_kortilla(self, kortti):
-        if kortti.saldo >= 240:
-            kortti.ota_rahaa(240)
-            self.edulliset += 1
-            return True
-        else:
-            return False
+        return self.korttimaksu(kortti, 240, True)
 
     def syo_maukkaasti_kortilla(self, kortti):
-        if kortti.saldo >= 400:
-            kortti.ota_rahaa(400)
-            self.maukkaat += 1
-            return True
-        else:
-            return False
+        return self.korttimaksu(kortti, 400, False)
 
     def lataa_rahaa_kortille(self, kortti, summa):
         if summa >= 0:
@@ -45,3 +47,9 @@ class Kassapaate:
 
     def kassassa_rahaa_euroina(self):
         return self.kassassa_rahaa / 100
+
+    def maukkaita_myyty(self):
+        return self.maukkaat
+
+    def edullisia_myyty(self):
+        return self.edulliset
