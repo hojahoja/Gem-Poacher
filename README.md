@@ -9,7 +9,8 @@ A retro review of Jewel Thief by LazyGameReviews:
 
 ## Documentation
 
-[Requirements Specification](documentation/requirements_specification.md)
+[Requirements Specification](documentation/requirements_specification.md) \
+[Work Time Log](documentation/work_time_log.md)
 
 ## Course exercizes
 
