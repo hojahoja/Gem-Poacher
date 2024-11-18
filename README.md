@@ -12,7 +12,7 @@ A retro review of Jewel Thief by LazyGameReviews:
 [Requirements Specification](documentation/requirements_specification.md) \
 [Work Time Log](documentation/work_time_log.md)
 
-## Course exercizes
+## Course exercises
 
 [Laskarikansio](https://github.com/hojahoja/ot-harjoitustyo/tree/main/laskarit)
 
