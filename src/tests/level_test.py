@@ -64,3 +64,7 @@ class LevelTest(unittest.TestCase):
         self.level.move_player(100, 720)
         collides = self.level.detect_border_collision(self.level.player)
         self.assertTrue(collides)
+
+    def test_no_collision_detect_when_player_is_not_at_the_border(self):
+        collides = self.level.detect_border_collision(self.level.player)
+        self.assertFalse(collides)
