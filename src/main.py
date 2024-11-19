@@ -1,6 +1,7 @@
 import pygame
 
 from clock import Clock
+from event_queue import EventQueue
 from game_loop import GameLoop
 from level import Level
 from renderer import Renderer
@@ -14,10 +15,11 @@ def main():
     pygame.display.set_caption("Gem Poacher")
     pygame.mouse.set_visible(False)
 
-    level: Level = Level(height, height)
+    level: Level = Level(width, height)
     renderer: Renderer = Renderer(display, level)
     clock: Clock = Clock()
-    game_loop: GameLoop = GameLoop(level, renderer, clock)
+    event_queue = EventQueue()
+    game_loop: GameLoop = GameLoop(level, renderer, clock, event_queue)
 
     pygame.init()
     game_loop.run()

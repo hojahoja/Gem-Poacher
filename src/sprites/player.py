@@ -9,8 +9,10 @@ type surface = pygame.Surface | pygame.SurfaceType
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, x: int = 0, y: int = 0):
+    def __init__(self, x: int = 0, y: int = 0, lives: int = 9):
         super().__init__()
+        self._lives = lives
+
         self._load_images()
         self.direction: str = "right"
         self.image: surface = self._images["right"]
@@ -26,6 +28,13 @@ class Player(pygame.sprite.Sprite):
             "right": moving_right,
             "left": pygame.transform.flip(moving_right, True, False)
         }
+
+    def injure(self):
+        self._lives -= 1
+
+    @property
+    def lives(self):
+        return self._lives
 
     def update(self):
         if self.direction == "right":
