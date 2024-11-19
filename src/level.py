@@ -1,4 +1,3 @@
-from pygame.rect import Rect
 from pygame.sprite import Group
 
 from sprites.player import Player

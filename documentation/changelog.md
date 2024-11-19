@@ -8,4 +8,5 @@
     - Level, Clock, EventQueue and Render are added to GameLoop as parameters
 - Added Player sprite
     - Can be moved with the mouse, has lives and can take damage.
-- Adds some tests for player
+- Added some tests for player
+- Added some tests for level
