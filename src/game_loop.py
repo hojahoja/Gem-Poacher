@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from clock import Clock
@@ -22,7 +24,7 @@ class GameLoop:
                     self._level.move_player(event.pos[0], event.pos[1])
 
                 if event.type == pygame.QUIT:
-                    exit()
+                    sys.exit()
 
             self._renderer.render()
             self._clock.tick(120)

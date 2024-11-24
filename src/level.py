@@ -2,7 +2,7 @@ from pygame.sprite import Group
 
 from sprites.player import Player
 
-type character = Player
+type Character = Player
 
 
 class Level:
@@ -16,7 +16,7 @@ class Level:
 
         self._init_sprites()
 
-    def detect_border_collision(self, entity: character) -> bool:
+    def detect_border_collision(self, entity: Character) -> bool:
         if (entity.rect.left < 0 or
                 entity.rect.right > self.width or
                 entity.rect.top < 0 or
