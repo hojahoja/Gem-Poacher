@@ -56,6 +56,14 @@ Generate a html report with:
 poetry run invoke coverage-report
 ```
 
+### Linter
+
+Run pylint for the src folder with:
+
+```sh
+poetry run invoke lint
+```
+
 ## Information about the original version
 
 This game was originally my final submission for the

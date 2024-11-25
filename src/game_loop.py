@@ -28,3 +28,5 @@ class GameLoop:
 
             self._renderer.render()
             self._clock.tick(120)
+            # TODO re-evaluate after GameLogic class is further a long.
+            self._level.update()

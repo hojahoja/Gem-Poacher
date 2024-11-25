@@ -10,3 +10,11 @@
     - Can be moved with the mouse, has lives and can take damage.
 - Added some tests for player
 - Added some tests for level
+
+## Week 4
+
+- Added Gem sprite
+- Collision detection:
+    - Collision between player and gems removes gems from the game
+    - Collision between player and borders damages player.
+- image_handler module for loading and manipulating images.
