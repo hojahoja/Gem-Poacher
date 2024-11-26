@@ -11,7 +11,8 @@ A retro review of Jewel Thief by LazyGameReviews:
 
 [Requirements Specification](documentation/requirements_specification.md) \
 [Work Time Log](documentation/work_time_log.md) \
-[Changelog](documentation/changelog.md)
+[Changelog](documentation/changelog.md) \
+[Architecture](documentation/architechture.md)
 
 ## Python Version
 

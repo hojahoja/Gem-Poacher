@@ -1,0 +1,35 @@
+@startuml
+' Packages
+package "sprites" {
+        class "Player"
+        class "Enemy"
+        class "Gem"
+}
+
+package "game_engine" {
+        class "GameLoop"
+        class "EventQueue"
+        class "Clock"
+        class "Renderer"
+        class "GameState"
+        class "GameLogic"
+}
+
+package "utilities" {
+        class "image_loader"
+}
+
+' Relationships
+image_loader --> Player
+image_loader --> Enemy
+image_loader --> Gem
+Player --> GameState
+Enemy --> GameState
+Gem --> GameState
+GameState --> GameLogic
+GameLogic --> GameLoop
+Clock --> GameLoop
+Renderer --> GameLoop
+EventQueue --> GameLoop
+
+@enduml

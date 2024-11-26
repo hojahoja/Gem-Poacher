@@ -13,7 +13,8 @@
 
 ## Week 4
 
-- Added Gem sprite
+- Added Gem sprite.
+    - Basic tests.
 - Collision detection:
     - Collision between player and gems removes gems from the game.
     - Collision between player and borders damages player.
