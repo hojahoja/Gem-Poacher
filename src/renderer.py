@@ -1,15 +1,15 @@
 import pygame
 
-from level import Level
+from game_state import GameState
 
 
 class Renderer:
 
-    def __init__(self, display: pygame.display, level: Level):
+    def __init__(self, display: pygame.display, game_state: GameState):
         self._display = display
-        self._level = level
+        self._game_state = game_state
 
     def render(self):
         self._display.fill((255, 255, 255))
-        self._level.sprites.draw(self._display)
+        self._game_state.sprites.draw(self._display)
         pygame.display.update()
