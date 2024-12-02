@@ -25,4 +25,9 @@
 ## Week 5
 
 - Files responsible for gameplay mechanics are moved into game_engine package.
-- Tests for all classes currently in game_engine
+- Tests for all classes currently in game_engine.
+- Points collected are now recorded.
+- Text rendering with and updating text based on game state.
+    - Lives are rendered on screen and updated in real time.
+    - Same for points when games are collected.
+    - Level text is rendered, but the feature is not yet implemented.

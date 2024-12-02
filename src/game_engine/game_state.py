@@ -15,8 +15,13 @@ class GameState:
         self.player: Player = Player()
         self.gems: Group = Group()
         self.sprites: Group = Group()
+        self._points: int = 0
 
         self.sprites.add(self.player)
+
+    @property
+    def points(self):
+        return self._points
 
     def _generate_random_spawn_point(self, game_object: Gem) -> tuple[int, int]:
         end_x: int = game_object.rect.width
@@ -25,6 +30,10 @@ class GameState:
         y: int = randint(1, self.height - end_y)
 
         return x, y
+
+    def add_points(self, points: int):
+        if points >= 0:
+            self._points += points
 
     def populate_level_with_gems(self, amount: int = 1):
         for _ in range(amount):

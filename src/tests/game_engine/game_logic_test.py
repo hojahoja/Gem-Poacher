@@ -13,6 +13,7 @@ class StubGameState(GameState):
         self.player = Player(lives=2)
         self.gems = Group()
         self.sprites = Group()
+        self._points = 0
 
         self.gems.add(Gem(800, 800, ))
         self.sprites.add(self.player)
@@ -30,7 +31,6 @@ class GameLogicTest(unittest.TestCase):
         self.game_state = StubGameState()
         self.player = self.game_state.player
         self.player.rect.center = (420, 420)
-        self.game_state.player = self.player
         self.game_logic = GameLogic(self.game_state)
 
     def test_moves_player_position_correctly(self):
@@ -104,6 +104,12 @@ class GameLogicTest(unittest.TestCase):
         self.game_logic.move_player(800, 800)
         self.game_logic.update()
         self.assertEqual(0, len(gems))
+
+    def test_player_gem_collision_adds_points_to_game_state(self):
+        self.game_logic.move_player(800, 800)
+        self.game_logic.update()
+        points = self.game_state.points
+        self.assertEqual(100, points)
 
     def test_empty_gem_group_triggers_populate_gems(self):
         self.assertEqual(0, self.game_state.populate_called)

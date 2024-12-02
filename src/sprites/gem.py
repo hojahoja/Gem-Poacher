@@ -13,6 +13,10 @@ class Gem(pygame.sprite.Sprite):
         self.rect: pygame.Rect = self.image.get_rect()
         self.place(x, y)
 
+    @property
+    def value(self):
+        return self._value
+
     def place(self, x: int, y: int):
         self.rect.x = x
         self.rect.y = y

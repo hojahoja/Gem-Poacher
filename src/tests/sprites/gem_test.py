@@ -13,7 +13,7 @@ class GemTest(unittest.TestCase):
 
     def test_gem_value_initializes_with_alternate_value(self):
         gem = Gem(value=300)
-        self.assertEqual(300, gem._value)
+        self.assertEqual(300, gem.value)
 
     def test_gem_can_be_moved(self):
         self.gem.place(400, 420)

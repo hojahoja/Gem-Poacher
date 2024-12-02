@@ -32,3 +32,12 @@ class GameStateTest(unittest.TestCase):
     def test_populate_level_with_gems_increases_gem_count(self):
         self.game_state.populate_level_with_gems(4)
         self.assertEqual(4, len(self.game_state.gems))
+
+    def test_add_points_increases_game_logic_points(self):
+        self.game_state.add_points(100)
+        self.assertEqual(100, self.game_state.points)
+
+    def test_add_points_cant_decrease_points(self):
+        self.game_state.add_points(300)
+        self.game_state.add_points(-100)
+        self.assertEqual(300, self.game_state.points)

@@ -1,6 +1,6 @@
 import pygame
 
-from sprites import Player
+from sprites import Player, Gem
 from .game_state import GameState
 
 type Character = Player
@@ -32,10 +32,12 @@ class GameLogic:
             return True
         return False
 
-    # TODO get points
     def _player_gem_collision(self, gems):
-        if pygame.sprite.spritecollide(self.player, gems, True):
-            print("To be continued!")
+        collided_gems: list[Gem] = pygame.sprite.spritecollide(self.player, gems, True)
+
+        if collided_gems:
+            for gem in collided_gems:
+                self._game_state.add_points(gem.value)
 
     def _player_wall_collision(self):
         if self.detect_border_collision(self.player):
