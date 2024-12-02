@@ -1,16 +1,9 @@
 import unittest
 
-import pygame
 from pygame.sprite import Group
 
-from game_logic import GameLogic
-from game_state import GameState
+from game_engine import GameLogic, GameState
 from sprites import Player, Gem
-
-
-class StubPlayer(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
 
 
 class StubGameState(GameState):

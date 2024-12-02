@@ -2,7 +2,7 @@ from random import randint
 
 from pygame.sprite import Group
 
-from sprites import Gem, Player
+from sprites import Player, Gem
 
 type Character = Player
 

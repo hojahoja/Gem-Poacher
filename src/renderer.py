@@ -1,6 +1,6 @@
 import pygame
 
-from game_state import GameState
+from game_engine.game_state import GameState
 
 
 class Renderer:

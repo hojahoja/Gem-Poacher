@@ -1,10 +1,8 @@
+import sys
+
 import pygame
 
-from clock import Clock
-from event_queue import EventQueue
-from game_logic import GameLogic
-from game_loop import GameLoop
-from game_state import GameState
+from game_engine import Clock, EventQueue, GameLogic, GameLoop, GameState
 from renderer import Renderer
 
 

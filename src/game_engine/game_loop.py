@@ -1,11 +1,9 @@
-import sys
-
 import pygame
 
-from clock import Clock
-from event_queue import EventQueue
-from game_logic import GameLogic
 from renderer import Renderer
+from .clock import Clock
+from .event_queue import EventQueue
+from .game_logic import GameLogic
 
 
 class GameLoop:

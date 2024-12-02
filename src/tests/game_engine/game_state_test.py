@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from game_state import GameState
+from game_engine import GameState
 
 
 class GameStateTest(unittest.TestCase):

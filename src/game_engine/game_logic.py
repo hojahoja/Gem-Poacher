@@ -1,7 +1,7 @@
 import pygame
 
-from game_state import GameState
 from sprites import Player
+from .game_state import GameState
 
 type Character = Player
 
