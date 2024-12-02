@@ -16,14 +16,16 @@ class GameLoop:
         self._event_queue = event_queue
 
     def run(self):
-        while True:
+        running = True
+        while running:
 
             for event in self._event_queue.get():
                 if event.type == pygame.MOUSEMOTION:
                     self._game_logic.move_player(event.pos[0], event.pos[1])
 
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    running = False
+                    break
 
             self._renderer.render()
             self._clock.tick(120)

@@ -21,3 +21,8 @@
 - image_handler module for loading and manipulating images.
 - Refactored Level Class into GameState and GameLogic.
     - Added appropriate tests for these classes.
+
+## Week 5
+
+- Files responsible for gameplay mechanics are moved into game_engine package.
+- Tests for all classes currently in game_engine

@@ -23,6 +23,8 @@ def main():
 
     pygame.init()
     game_loop.run()
+    pygame.quit()
+    sys.exit()
 
 
 if __name__ == "__main__":
