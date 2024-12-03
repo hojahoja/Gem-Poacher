@@ -13,3 +13,11 @@ All gem images are licensed under CC0. Individual creator credits can be found f
 
 Sourced from:
 https://opengameart.org/content/cc0-gem-icons
+
+## Ghost Images
+
+Ghost Images are created by Kimmo Rundelin (kiheru) and
+distributed under the CC BY-SA 3.0 Licence.
+
+Sourced from:
+https://opengameart.org/node/81284

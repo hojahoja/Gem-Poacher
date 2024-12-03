@@ -42,6 +42,7 @@ class StubGameState:
         self.width = 1280
         self.player = StubPlayer(lives=2)
         self.gems = Group()
+        self.enemies = Group()
         self.sprites = Group()
         self.points = 0
 

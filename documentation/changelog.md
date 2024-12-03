@@ -31,5 +31,12 @@
     - Lives are rendered on screen and updated in real time.
     - Same for points when games are collected.
     - Level text is rendered, but the feature is not yet implemented.
-- Player becomes invulnerable to damage for a set period of time after taking damage
-    - Player image becomes transparent during the invulnerability period
+- Player becomes invulnerable to damage for a set period of time after taking damage.
+    - Player image becomes transparent during the invulnerability period.
+- Enemy character:
+    - Random spawn point.
+    - Move diagonally around the game area.
+    - Can be initiated with different movement speeds.
+    - Change movement direction when they hit a border.
+    - Damage the player when touched.
+    - Minor movement animation swapping between 3 frames.

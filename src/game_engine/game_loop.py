@@ -18,6 +18,9 @@ class GameLoop:
     def run(self):
         running = True
         self._game_logic.activate_player_invulnerability()
+        # TODO remove test spawns
+        for i in range(1, 3 + 1):
+            self._game_logic._game_state.spawn_enemy(i)
         while running:
 
             for event in self._event_queue.get():

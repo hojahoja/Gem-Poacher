@@ -35,17 +35,17 @@ A rough concept of the main game view
       mouse.
     - [x] Touches gems that are visible on the screen to collect points.
     - [x] Has a set number of lives which can be lost one by one when taking damage.
-    - [ ] Takes damage from touching an enemy character or the screen borders.
+    - [x] Takes damage from touching an enemy character or the screen borders.
     - [x] Has a short invulnerability window after taking damage. The character will
       appear opaque when invulnerable.
 
-- [ ] Enemy Character
+- [x] Enemy Character
 
-    - [ ] Moves diagonally on the game screen.
-    - [ ] Changes direction after touching a screen border.
-    - [ ] Can pass through other enemy characters without an issue.
-    - [ ] Touching a gem won't affect the enemy or the gem.
-    - [ ] Damages the player when the player object touches the enemy.
+    - [x] Moves diagonally on the game screen.
+    - [x] Changes direction after touching a screen border.
+    - [x] Can pass through other enemy characters without an issue.
+    - [x] Touching a gem won't affect the enemy or the gem.
+    - [x] Damages the player when the player object touches the enemy.
     - [ ] Keeps spawning as game stages go up.
     - [ ] Can increase its movement speed when certain criteria are met.
 
