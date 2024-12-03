@@ -10,7 +10,7 @@
 | 26.11  |   5   | Refactoring and writing tests. Package/Class Diagram. Looked into event based architecture for future potential restructure in the future     | 
 |  1.12  |  4.5  | Learning about mock testing in python took some time. Also wrote some of those tests. Commit is after 2 AM 2.12, but work started way before. |
 |  2.12  |   8   | Game state points work, UI text rendering, tests. Player invulnerability handling and fixing test (this took a lot of time)                   |
-|  3.12  |   5   | Messed around with subtests. Implemented enemy characters, their interactions and their and animation.                                        |
-| total  |  44   | 
+|  3.12  |   6   | Messed around with subtests. Implemented enemy characters, their interactions and their and animation. Sequence Diagram.                      |
+| total  |  45   | 
 
  
