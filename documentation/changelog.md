@@ -27,9 +27,9 @@
 - Files responsible for gameplay mechanics are moved into game_engine package.
 - Tests for all classes currently in game_engine.
 - Points collected are now recorded.
-- Text rendering with and updating text based on game state.
+- Text rendering with a controller class and updating text based on game state.
     - Lives are rendered on screen and updated in real time.
-    - Same for points when games are collected.
+    - Same for points when gems are collected.
     - Level text is rendered, but the feature is not yet implemented.
 - Player becomes invulnerable to damage for a set period of time after taking damage.
     - Player image becomes transparent during the invulnerability period.
@@ -37,6 +37,6 @@
     - Random spawn point.
     - Move diagonally around the game area.
     - Can be initiated with different movement speeds.
-    - Change movement direction when they hit a border.
-    - Damage the player when touched.
+    - Changes movement direction when they hit a border.
+    - Damages the player when touched.
     - Minor movement animation swapping between 3 frames.
