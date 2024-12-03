@@ -17,6 +17,7 @@ class GameLoop:
 
     def run(self):
         running = True
+        self._game_logic.activate_player_invulnerability()
         while running:
 
             for event in self._event_queue.get():

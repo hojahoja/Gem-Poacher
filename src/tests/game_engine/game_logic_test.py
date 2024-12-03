@@ -1,21 +1,51 @@
 import unittest
+from unittest.mock import patch
 
+import pygame
 from pygame.sprite import Group
 
-from game_engine import GameLogic, GameState
-from sprites import Player, Gem
+from game_engine import GameLogic
 
 
-class StubGameState(GameState):
+class StubGem(pygame.sprite.Sprite):
+    def __init__(self, x=0, y=0, value=100):
+        super().__init__()
+        self.value = value
+        self.image = pygame.Surface((40, 40))
+
+        self.rect = self.image.get_rect()
+        self.place(x, y)
+
+    def place(self, x: int, y: int):
+        self.rect.x = x
+        self.rect.y = y
+
+
+class StubPlayer(pygame.sprite.Sprite):
+    def __init__(self, x=0, y=0, lives=2):
+        super().__init__()
+        self.vulnerable = True
+        self.lives = lives
+        self.image = pygame.Surface((50, 50))
+        self.direction = "right"
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def injure(self):
+        self.lives -= 1
+
+
+class StubGameState:
     def __init__(self):
         self.height = 720
         self.width = 1280
-        self.player = Player(lives=2)
+        self.player = StubPlayer(lives=2)
         self.gems = Group()
         self.sprites = Group()
-        self._points = 0
+        self.points = 0
 
-        self.gems.add(Gem(800, 800, ))
+        self.gems.add(StubGem(800, 800, ))
         self.sprites.add(self.player)
         self.sprites.add(self.gems)
 
@@ -24,13 +54,18 @@ class StubGameState(GameState):
     def populate_level_with_gems(self, amount: int = 1):
         self.populate_called += 1
 
+    def add_points(self, value):
+        self.points += value
+
 
 class GameLogicTest(unittest.TestCase):
 
     def setUp(self):
         self.game_state = StubGameState()
         self.player = self.game_state.player
+
         self.player.rect.center = (420, 420)
+
         self.game_logic = GameLogic(self.game_state)
 
     def test_moves_player_position_correctly(self):
@@ -116,3 +151,24 @@ class GameLogicTest(unittest.TestCase):
         self.game_logic.move_player(800, 800)
         self.game_logic.update()
         self.assertEqual(1, self.game_state.populate_called)
+
+    def test_player_taking_damage_activates_invulnerability(self):
+        self.game_logic.move_player(0, 300)
+        self.game_logic.update()
+        self.assertFalse(self.player.vulnerable)
+
+    def test_player_becomes_vulnerable_after_enough_time_has_passed(self):
+        self.game_logic.activate_player_invulnerability()
+        self.game_logic.update()
+        self.assertFalse(self.player.vulnerable)
+        with patch.object(pygame.time, "get_ticks") as mock_tick:
+            mock_tick.return_value = 1001
+            self.game_logic.update()
+
+        self.assertTrue(self.player.vulnerable)
+
+    def test_player_doesnt_take_damage_when_invulnerable(self):
+        self.game_logic.activate_player_invulnerability()
+        self.game_logic.move_player(0, 200)
+        self.game_logic.update()
+        self.assertEqual(2, self.player.lives)

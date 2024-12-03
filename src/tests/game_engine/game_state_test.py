@@ -1,13 +1,19 @@
 import unittest
 from unittest.mock import patch
 
+import pygame
+
 from game_engine import GameState
 
 
 class GameStateTest(unittest.TestCase):
 
     def setUp(self):
+        self.player_patch = patch("sprites.player.image_handler").start()
         self.game_state = GameState(1280, 720)
+
+    def tearDown(self):
+        self.player_patch.stop()
 
     def test_game_state_initializes_properly(self):
         self.assertEqual(1280, self.game_state.width)
@@ -29,7 +35,9 @@ class GameStateTest(unittest.TestCase):
         for spawn in spawns:
             self.assertIn(spawn, expected)
 
-    def test_populate_level_with_gems_increases_gem_count(self):
+    @patch("sprites.gem.image_handler.load_image")
+    def test_populate_level_with_gems_increases_gem_count(self, mock_loader):
+        mock_loader.return_value = pygame.Surface((32, 40))
         self.game_state.populate_level_with_gems(4)
         self.assertEqual(4, len(self.game_state.gems))
 

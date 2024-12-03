@@ -33,10 +33,10 @@ A rough concept of the main game view
 
     - [x] Replaces the mouse cursor inside the game window and can be moved with the
       mouse.
-    - [ ] Touches gems that are visible on the screen to collect points.
-    - [x] Has a set number of lives which can be lost one by one by taking damage.
+    - [x] Touches gems that are visible on the screen to collect points.
+    - [x] Has a set number of lives which can be lost one by one when taking damage.
     - [ ] Takes damage from touching an enemy character or the screen borders.
-    - [ ] Has a short invulnerability window after taking damage. The character will
+    - [x] Has a short invulnerability window after taking damage. The character will
       appear opaque when invulnerable.
 
 - [ ] Enemy Character
@@ -49,7 +49,7 @@ A rough concept of the main game view
     - [ ] Keeps spawning as game stages go up.
     - [ ] Can increase its movement speed when certain criteria are met.
 
-- [ ] Basic logic
+- [x] Basic logic
 
     - [x] Each stage will load with collectible gem.
     - [ ] Starts with a few slowly moving enemies.
@@ -60,7 +60,7 @@ A rough concept of the main game view
 
 ### Other functionality
 
-- [ ] The game will form a score based on gems collected.
+- [x] The game will form a score based on gems collected.
 - [ ] The player can enter their name at the end of the game. Name and score will be
   kept in a database.
 - [ ] You can see the top scorers after the game has ended.

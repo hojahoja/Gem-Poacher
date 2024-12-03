@@ -31,3 +31,5 @@
     - Lives are rendered on screen and updated in real time.
     - Same for points when games are collected.
     - Level text is rendered, but the feature is not yet implemented.
+- Player becomes invulnerable to damage for a set period of time after taking damage
+    - Player image becomes transparent during the invulnerability period

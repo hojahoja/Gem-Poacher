@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from sprites import Gem
 
@@ -6,7 +7,11 @@ from sprites import Gem
 class GemTest(unittest.TestCase):
 
     def setUp(self):
+        self.patcher = patch('sprites.gem.image_handler').start()
         self.gem = Gem(200, 200)
+
+    def tearDown(self):
+        self.patcher.stop()
 
     def test_gem_default_value(self):
         self.assertEqual(100, self.gem._value)
