@@ -22,6 +22,11 @@ def test(ctx):
 
 
 @task
+def test_short(ctx):
+    platform_agnostic_command(ctx, "pytest src --tb=short")
+
+
+@task
 def coverage(ctx):
     platform_agnostic_command(ctx, "coverage run --branch -m pytest src")
     platform_agnostic_command(ctx, "coverage report -m")

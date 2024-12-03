@@ -11,17 +11,8 @@ class PlayerTest(unittest.TestCase):
         self.image_handler_patcher.start()
         self.player = Player(player_lives=2)
 
-        self.images_dict_patcher = patch.dict(self.player._images, {
-            "right": "right_substitute",
-            "left": "left_substitute",
-            "damaged_right": "damaged_right_substitute",
-            "damaged_left": "damaged_left_substitute",
-        })
-        self.images_dict_patcher.start()
-
     def tearDown(self):
         self.image_handler_patcher.stop()
-        self.images_dict_patcher.stop()
 
     def test_player_initializes_correctly(self):
         self.assertEqual(2, self.player.lives)
@@ -37,25 +28,25 @@ class PlayerTest(unittest.TestCase):
 
         self.assertEqual(0, self.player.lives)
 
-    def test_update_returns_correct_value_right_vulnerable(self):
-        self.player.update()
-        self.assertEqual("right_substitute", self.player.image)
-
-    def test_update_returns_correct_value_left_vulnerable(self):
-        self.player.direction = "left"
-        self.player.update()
-        self.assertEqual("left_substitute", self.player.image)
-
-    def test_update_returns_correct_value_right_invulnerable(self):
-        self.player.vulnerable = False
-        self.player.update()
-        self.assertEqual("damaged_right_substitute", self.player.image)
-
-    def test_update_returns_correct_value_left_invulnerable(self):
-        self.player.vulnerable = False
-        self.player.direction = "left"
-        self.player.update()
-        self.assertEqual("damaged_left_substitute", self.player.image)
+    def test_update_returns_correct_value(self):
+        with patch.dict(self.player._images, {
+            "right": "right_substitute",
+            "left": "left_substitute",
+            "damaged_right": "damaged_right_substitute",
+            "damaged_left": "damaged_left_substitute",
+        }):
+            test_cases = [
+                ("right", True, "right_substitute"),
+                ("left", True, "left_substitute"),
+                ("right", False, "damaged_right_substitute"),
+                ("left", False, "damaged_left_substitute"),
+            ]
+            for direction, vulnerability, expected_substitute_image in test_cases:
+                with self.subTest(direction=direction, vulnerability=vulnerability):
+                    self.player.direction = direction
+                    self.player.vulnerable = vulnerability
+                    self.player.update()
+                    self.assertEqual(expected_substitute_image, self.player.image)
 
     def test_setting_incorrect_value_in_vulnerable_raises_value_error(self):
         with self.assertRaises(ValueError):
