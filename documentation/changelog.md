@@ -40,3 +40,8 @@
     - Changes movement direction when they hit a border.
     - Damages the player when touched.
     - Minor movement animation swapping between 3 frames.
+
+## Week 6
+
+- Every class has a Docstring.
+- Majority of engine and sprite tests covered.

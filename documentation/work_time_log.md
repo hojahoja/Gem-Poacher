@@ -11,6 +11,8 @@
 |  1.12  |  4.5  | Learning about mock testing in python took some time. Also wrote some of those tests. Commit is after 2 AM 2.12, but work started way before. |
 |  2.12  |   8   | Game state points work, UI text rendering, tests. Player invulnerability handling and fixing test (this took a lot of time)                   |
 |  3.12  |   6   | Messed around with subtests. Implemented enemy characters, their interactions and their and animation. Sequence Diagram.                      |
-| total  |  45   | 
+|  8.12  |   4   | Docstrings.                                                                                                                                   |
+|  9.12  |   8   | More Docstrings (send help) and missing tests. Yes it took this long.                                                                         |
+| total  |  57   | 
 
  

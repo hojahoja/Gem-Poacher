@@ -36,6 +36,19 @@ class StubPlayer(pygame.sprite.Sprite):
         self.lives -= 1
 
 
+class StubEnemy(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.times_moved = 0
+        self.image = pygame.Surface((40, 40))
+        self.rect = self.image.get_rect()
+        self.direction_x = 1
+        self.direction_y = 1
+
+    def move(self):
+        self.times_moved += 1
+
+
 class StubGameState:
     def __init__(self):
         self.height = 720
@@ -47,8 +60,11 @@ class StubGameState:
         self.points = 0
 
         self.gems.add(StubGem(800, 800, ))
+        self.enemies.add(StubEnemy())
+        self.enemies.add(StubEnemy())
         self.sprites.add(self.player)
         self.sprites.add(self.gems)
+        self.sprites.add(self.enemies)
 
         self.populate_called = 0
 
@@ -173,3 +189,50 @@ class GameLogicTest(unittest.TestCase):
         self.game_logic.move_player(0, 200)
         self.game_logic.update()
         self.assertEqual(2, self.player.lives)
+
+    def test_game_logic_update_moves_the_enemies(self):
+        self.game_logic.update()
+        self.game_logic.update()
+
+        for enemy in self.game_state.enemies.sprites():
+            self.assertEqual(enemy.times_moved, 2)
+
+    def test_game_enemy_wall_collision_moves_enemy_direction(self):
+        enemy = self.game_logic.enemies.sprites()[0]
+        enemy.rect.center = (100, 100)
+
+        test_cases = [
+            ((100, 0), (1, -1), (1, 1)),  # top collision
+            ((0, 100), (-1, 1), (1, 1)),  # left
+            ((100, self.game_state.height), (1, 1), (1, -1)),  # bottom
+            ((self.game_state.width, 100), (1, 1), (-1, 1)),  # right
+        ]
+
+        for coordinates, initial_direction, expected_direction in test_cases:
+            with self.subTest(coordinates=coordinates):
+                enemy.rect.center = coordinates
+                enemy.direction_x = initial_direction[0]
+                enemy.direction_y = initial_direction[1]
+                self.game_logic.update()
+                enemy_direction = (enemy.direction_x, enemy.direction_y)
+
+                self.assertEqual(expected_direction, enemy_direction)
+
+    def test_enemy_doesnt_change_direction_if_it_doesnt_collide_with_a_wall(self):
+        enemy = self.game_logic.enemies.sprites()[0]
+        enemy.rect.center = (100, 100)
+        enemy.direction_x = 1
+        enemy.direction_y = 1
+
+        self.game_logic.update()
+        enemy_direction = (enemy.direction_x, enemy.direction_y)
+
+        self.assertEqual((1, 1), enemy_direction)
+
+    def test_enemy_player_collision_damages_player(self):
+        self.player.lives = 5
+        self.player.rect.center = (100, 100)
+        self.game_logic.enemies.sprites()[0].rect.center = (100, 100)
+        self.game_logic.update()
+
+        self.assertEqual(4, self.player.lives)
