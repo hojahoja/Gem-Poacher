@@ -6,7 +6,16 @@ from game_engine import Clock, EventQueue, GameLogic, GameLoop, GameState
 from renderer import Renderer
 
 
-def main():
+# Docstrings in this module were written with the help of AI generation.
+def init() -> GameLoop:
+    """
+    Initializes the game application. Sets up display properties, game state,
+    logic, and control flow components required for running the game.
+
+
+    Returns:
+        A GameLoop instance that manages the core game loop operations.
+    """
     width: int = 1280
     height: int = 720
     display: pygame.Surface = pygame.display.set_mode((width, height))
@@ -24,10 +33,16 @@ def main():
     game_loop: GameLoop = GameLoop(game_logic, renderer, clock, event_queue)
 
     pygame.init()
-    game_loop.run()
+    return game_loop
+
+
+def stop():
+    """Exits the game application cleanly."""
     pygame.quit()
     sys.exit()
 
 
 if __name__ == "__main__":
-    main()
+    loop: GameLoop = init()
+    loop.run()
+    stop()
