@@ -8,6 +8,7 @@ A retro review of Jewel Thief by LazyGameReviews:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/EIcImzLNMz8/0.jpg)](https://youtu.be/EIcImzLNMz8)
 
 ## Release
+
 [GitHub release](https://github.com/hojahoja/Gem-Poacher/releases)
 
 ## Documentation
@@ -15,7 +16,8 @@ A retro review of Jewel Thief by LazyGameReviews:
 [Requirements Specification](documentation/requirements_specification.md) \
 [Work Time Log](documentation/work_time_log.md) \
 [Changelog](documentation/changelog.md) \
-[Architecture](documentation/architechture.md)
+[Architecture](documentation/architecture.md) \
+[User Manual](documentation/user_manual.md)
 
 ## Python Version
 

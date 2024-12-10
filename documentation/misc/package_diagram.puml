@@ -10,7 +10,6 @@ package "game_engine" {
         class "GameLoop"
         class "EventQueue"
         class "Clock"
-        class "Renderer"
         class "GameState"
         class "GameLogic"
 }
@@ -19,17 +18,26 @@ package "utilities" {
         class "image_loader"
 }
 
+package "user_interface" {
+        class "Renderer"
+        class "UITextController"
+}
+
 ' Relationships
-image_loader --> Player
-image_loader --> Enemy
-image_loader --> Gem
-Player --> GameState
-Enemy --> GameState
-Gem --> GameState
-GameState --> GameLogic
-GameLogic --> GameLoop
-Clock --> GameLoop
-Renderer --> GameLoop
-EventQueue --> GameLoop
+image_loader <-- Player
+image_loader <-- Enemy
+image_loader <-- Gem
+Player <-- GameState
+Enemy <-- GameState
+Gem <-- GameState
+GameState <-- GameLogic
+GameLogic <-- GameLoop
+Clock <-- GameLoop
+GameState <-- UITextController
+UITextController <-- Renderer
+GameState <-- Renderer
+Renderer <-- GameLoop
+EventQueue <-- GameLoop
+
 
 @enduml
