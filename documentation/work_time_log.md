@@ -13,6 +13,7 @@
 |  3.12  |   6   | Messed around with subtests. Implemented enemy characters, their interactions and their and animation. Sequence Diagram.                      |
 |  8.12  |   4   | Docstrings.                                                                                                                                   |
 |  9.12  |   8   | More Docstrings (send help) and missing tests. Yes it took this long.                                                                         |
-| total  |  57   | 
+| 10.12  |  5.5  | New gameplay features and UI changes.                                                                                                         |
+| total  | 62.5  | Developing like a madman.                                                                                                                     |
 
  

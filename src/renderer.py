@@ -35,6 +35,13 @@ class Renderer:
         self.text_controller: ui_text.UITextController = ui_text.UITextController(game_state)
 
     def render(self):
+
+        if not self._game_state.game_over:
+            self._gameplay_screen()
+        else:
+            self._game_over_screen()
+
+    def _gameplay_screen(self):
         """Handles rendering of the display during gameplay.
 
         This method updates the display elements including filling the background,
@@ -47,6 +54,14 @@ class Renderer:
         self.render_text_object_groups(ui_text.GAMEPLAY)
         self._game_state.sprites.draw(self._display)
         pygame.display.update()
+
+    def _game_over_screen(self):
+        self._display.fill((0, 0, 0))
+        self.render_text_object_groups(ui_text.GAME_OVER_SCREEN)
+        pygame.display.update()
+
+    def redraw_game_play_text(self):
+        self.text_controller.update(force_update=True)
 
     def render_text_object_groups(self, group_name: str):
         """Renders text objects from a specified group.

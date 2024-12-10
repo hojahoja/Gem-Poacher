@@ -38,6 +38,7 @@ A rough concept of the main game view
     - [x] Takes damage from touching an enemy character or the screen borders.
     - [x] Has a short invulnerability window after taking damage. The character will
       appear opaque when invulnerable.
+    - [x] Character changes direction when moving left or right.
 
 - [x] Enemy Character
 
@@ -46,16 +47,17 @@ A rough concept of the main game view
     - [x] Can pass through other enemy characters without an issue.
     - [x] Touching a gem won't affect the enemy or the gem.
     - [x] Damages the player when the player object touches the enemy.
-    - [ ] Keeps spawning as game stages go up.
-    - [ ] Can increase its movement speed when certain criteria are met.
+    - [x] Keeps spawning as game stages go up.
+    - [x] Can increase its movement speed when certain criteria are met.
+    - [x] Small movement animation
 
 - [x] Basic logic
 
     - [x] Each stage will load with collectible gem.
-    - [ ] Starts with a few slowly moving enemies.
-    - [ ] When the player collects all visible coins, the next stage begins and the
+    - [x] Starts with a few slowly moving enemies.
+    - [x] When the player collects all visible coins, the next stage begins and the
       game will spawn another enemy.
-    - [ ] At certain stages, the speed of newly spawned enemies will be increased.
+    - [x] At certain stages, the speed of newly spawned enemies will be increased.
       Existing enemies will keep their current speed to vary the gameplay.
 
 ### Other functionality

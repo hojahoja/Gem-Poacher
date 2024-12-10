@@ -8,6 +8,10 @@ from game_engine.game_state import GameState
 
 type TextObject = tuple[Surface, tuple[int, int]]
 
+GAME_OVER_SCREEN: str = "game_over_screen"
+GAME_OVER: str = "game_over"
+END_OPTIONS: str = "end_options"
+
 GAMEPLAY: str = "gameplay"
 """Constant for the name of the gameplay text group and font."""
 LIVES: str = "lives"
@@ -60,6 +64,7 @@ class UITextController:
         self._create_text_states()
         self._create_font_types()
         self._create_level_text_objects()
+        self._create_game_over_text_objects()
 
     def _create_text_states(self):
         """Creates and initializes the text states dictionary.
@@ -68,8 +73,8 @@ class UITextController:
         for the player's level, lives, and points. The level is set to 0,
         while the lives and points are obtained from the current game state.
         """
-        self.text_states = {
-            LEVEL: 0,
+        self.text_states: dict[str: int] = {
+            LEVEL: self.game_state.level,
             LIVES: self.game_state.player.lives,
             POINTS: self.game_state.points,
         }
@@ -86,8 +91,7 @@ class UITextController:
         """
         font: Font = self.fonts[GAMEPLAY]
 
-        # TODO level functionality
-        level_text: Surface = font.render("Level 1", True, (255, 0, 0))
+        level_text: Surface = font.render(f"Level: {self.game_state.level}", True, (255, 0, 0))
         lives_text: Surface = font.render(f"Lives: {self.game_state.player.lives}", True,
                                           (255, 0, 0))
         points_text: Surface = font.render(f"Points {self.game_state.points}", True,
@@ -97,6 +101,21 @@ class UITextController:
             LEVEL: (level_text, (self.width - 200, 10)),
             LIVES: (lives_text, (self.width - 320, 10)),
             POINTS: (points_text, (self.width - 200, self.height - 30))
+        }
+
+    def _create_game_over_text_objects(self):
+        font: Font = self.fonts[GAME_OVER_SCREEN]
+
+        game_over_text: Surface = font.render("GAME OVER", True, (200, 0, 0))
+        end_options_text: Surface = font.render(f"F1: NEW GAME{" " * 10}ESC: QUIT GAME", True,
+                                                (200, 0, 0))
+
+        self.text_objects[GAME_OVER_SCREEN] = {
+            GAME_OVER: (game_over_text, ((self.width - game_over_text.get_width()) // 2,
+                                         (self.height - game_over_text.get_height()) // 2)),
+            END_OPTIONS: (end_options_text,
+                          ((self.width - end_options_text.get_width()) // 2,
+                           (self.height - end_options_text.get_height()) // 2 + 100)),
         }
 
     def get_text_surface_group(self, group_name: str) -> Iterator[TextObject]:
@@ -136,17 +155,22 @@ class UITextController:
     def _create_font_types(self):
         """Creates and adds font types to the controller."""
         self.fonts[GAMEPLAY] = pygame.font.SysFont("Arial", 24)
+        self.fonts[GAME_OVER_SCREEN] = pygame.font.SysFont("Arial", 48)
 
-    def update(self):
+    def update(self, force_update: bool = False):
         """Callable method to update the text objects in the UI.
 
         Checks whether relevant game state values have changed and calls a method
         to update the changed text objects.
         """
         current_lives: int = self.game_state.player.lives
-        if self.text_states[LIVES] != current_lives:
+        if self.text_states[LIVES] != current_lives or force_update:
             self._update_text_object(GAMEPLAY, LIVES, f"Lives: {current_lives}")
 
         current_points: int = self.game_state.points
-        if self.text_states[POINTS] != current_points:
+        if self.text_states[POINTS] != current_points or force_update:
             self._update_text_object(GAMEPLAY, POINTS, f"Points: {current_points}")
+
+        current_level: int = self.game_state.level
+        if self.text_states[LEVEL] != current_level or force_update:
+            self._update_text_object(GAMEPLAY, LEVEL, f"Level: {current_level}")

@@ -23,6 +23,7 @@ class GameLoop:
         self._renderer = renderer
         self._clock = clock
         self._event_queue = event_queue
+        self._running = True
 
     def run(self):
         """Start the game loop and call update the game on every iteration.
@@ -32,21 +33,32 @@ class GameLoop:
         calling clock ticks and updating the game logic and renderer. breaks the loop
         on quit event.
         """
-        running = True
-        self._game_logic.activate_player_invulnerability()
-        # TODO remove test spawns
-        for i in range(1, 3 + 1):
-            self._game_logic._game_state.spawn_enemy(i)
-        while running:
+        self._game_logic.start_new_game()
+        while True:
 
-            for event in self._event_queue.get():
-                if event.type == pygame.MOUSEMOTION:
-                    self._game_logic.move_player(event.pos[0], event.pos[1])
+            if not self._running:
+                break
 
-                if event.type == pygame.QUIT:
-                    running = False
-                    break
+            self._pygame_event_handler()
 
             self._renderer.render()
             self._clock.tick(120)
+
+            # FIXME: game should not update when game is over
             self._game_logic.update()
+
+    def _pygame_event_handler(self):
+        for event in self._event_queue.get():
+            if event.type == pygame.MOUSEMOTION:
+                self._game_logic.move_player(event.pos[0], event.pos[1])
+
+            elif event.type == pygame.QUIT:
+                self._running = False
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F1:
+                    self._game_logic.reset_game()
+                    self._game_logic.start_new_game()
+                    self._renderer.redraw_game_play_text()
+                elif event.key == pygame.K_ESCAPE:
+                    self._running = False

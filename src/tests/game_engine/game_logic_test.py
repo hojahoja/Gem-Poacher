@@ -58,6 +58,8 @@ class StubGameState:
         self.enemies = Group()
         self.sprites = Group()
         self.points = 0
+        self.level = 0
+        self.difficulty = 0
 
         self.gems.add(StubGem(800, 800, ))
         self.enemies.add(StubEnemy())
@@ -67,12 +69,19 @@ class StubGameState:
         self.sprites.add(self.enemies)
 
         self.populate_called = 0
+        self.spawn_enemy_called = []
 
     def populate_level_with_gems(self, amount: int = 1):
         self.populate_called += 1
 
     def add_points(self, value):
         self.points += value
+
+    def increase_level(self):
+        self.level += 1
+
+    def spawn_enemy(self, speed=0):
+        self.spawn_enemy_called.append(speed)
 
 
 class GameLogicTest(unittest.TestCase):

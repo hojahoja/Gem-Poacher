@@ -2,9 +2,11 @@ import pygame
 from pygame.sprite import Group
 
 from sprites import Player, Gem, Enemy
+from .constants import Difficulty
 from .game_state import GameState
 
 type Character = Player | Enemy
+type ProgressionLogic = tuple[tuple[int, int], tuple[int, int], tuple[int, int]]
 
 
 class GameLogic:
@@ -34,6 +36,19 @@ class GameLogic:
         self.enemies: Group[Enemy] = game_state.enemies
         self._invulnerability_period: int = 1000
         self._invulnerability_period_start: int = 0
+        self._initialize_progression_difficulty_settings()
+
+    def _initialize_progression_difficulty_settings(self):
+        self._progression_options: list[ProgressionLogic] = [
+            ((1, 10), (1, 2), (2, 2)),
+            ((2, 6), (2, 3), (4, 4)),
+            ((2, 6), (3, 3), (4, 4)),
+            ((1, 1), (5, 5), (1, 1)),
+        ]
+
+    @property
+    def game_over(self):
+        return self._game_state.game_over
 
     def move_player(self, x: int = 0, y: int = 0):
         """Move the player to the given coordinates.
@@ -146,6 +161,35 @@ class GameLogic:
         self.player.vulnerable = False
         self._invulnerability_period_start = pygame.time.get_ticks()
 
+    def _progress_to_next_level(self):
+        self._game_state.increase_level()
+
+        level: int = self._game_state.level
+        threshold, enemy_speed, gem_count = self._progression_options[self._game_state.difficulty]
+
+        if level >= threshold[0]:
+            self._game_state.spawn_enemy(enemy_speed[0])
+            self._game_state.populate_level_with_gems(gem_count[0] + level)
+        elif level >= threshold[1]:
+            self._game_state.spawn_enemy(enemy_speed[1])
+            self._game_state.populate_level_with_gems(gem_count[1] + level)
+        else:
+            self._game_state.spawn_enemy(speed=1)
+            self._game_state.populate_level_with_gems(5)
+
+    def start_new_game(self, difficulty: Difficulty = Difficulty.MEDIUM):
+        self._game_state.difficulty = difficulty
+        self._game_state.populate_level_with_gems(5)
+        self._game_state.spawn_multiple_enemies(enemy_count=3, enemy_speed=1)
+        self.activate_player_invulnerability()
+
+    def reset_game(self):
+        self._game_state.reset_game_state()
+        self._invulnerability_period_start = 0
+        self.player.vulnerable = True
+        self.player: Player = self._game_state.player
+        self.enemies: Group[Enemy] = self._game_state.enemies
+
     def update(self):
         """Activate all the functionality inside this class
 
@@ -156,7 +200,7 @@ class GameLogic:
         self._run_collision_checks()
 
         if not self._game_state.gems:
-            self._game_state.populate_level_with_gems(5)
+            self._progress_to_next_level()
 
         elapsed_time: int = pygame.time.get_ticks() - self._invulnerability_period_start
         if elapsed_time > self._invulnerability_period:

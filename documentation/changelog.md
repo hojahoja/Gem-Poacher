@@ -45,3 +45,17 @@
 
 - Every class has a Docstring.
 - Majority of engine and sprite tests covered.
+- All features under gameplay section of req specification implemented.
+- Difficulty settings:
+    - Only accessible through code variables (for now).
+    - Affects gem and enemy spawn rates and initial player lives
+- Level progression:
+    - Spawn new enemies and gems upon completing a level.
+    - Level progression varies with different difficulty settings.
+    - UI tracking for current level
+- New Game (reset game state) feature.
+    - GameLogic and GameState classes have now features for initializing a new game on demand.
+- Game Over:
+    - Game ends after all player lives are lost.
+    - Currently just a black screen with new game and quit game options.
+

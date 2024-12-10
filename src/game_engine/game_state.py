@@ -2,6 +2,7 @@ from random import randint, choice
 
 from pygame.sprite import Group
 
+from game_engine.constants import Difficulty
 from sprites import Player, Gem
 from sprites.enemy import Enemy
 
@@ -26,7 +27,7 @@ class GameState:
         _points: Total number of points earned during the game.
     """
 
-    def __init__(self, width: int, height: int):
+    def __init__(self, width: int, height: int, difficulty: Difficulty = Difficulty.MEDIUM):
         """Initialize the game state.
 
         Keeps track of the game width and height variables. Initializes the sprites
@@ -37,15 +38,45 @@ class GameState:
             width: The width of the game window.
             height: The height of the game window.
         """
-        self.width = width
-        self.height = height
-        self.player: Player = Player()
+        self._dimensions: tuple[int, int] = (width, height)
+        self.difficulty: Difficulty = difficulty
+        self._initialize_gameplay_variables()
+
+    def _initialize_gameplay_variables(self):
+        """Helper function for initializing game objects.
+
+        Helper function for initializing game objects. Seperated into its own method
+        so it can be called when resetting the game state.
+
+        Args:
+            lives: The number of lives the player starts with. Defaults to 9.
+        """
+
+        lives = 18 // (self.difficulty + 1)
+        self.player: Player = Player(player_lives=lives)
         self.gems: Group = Group()
         self.enemies: Group = Group()
         self.sprites: Group = Group()
         self._points: int = 0
+        self._level: int = 1
 
         self.sprites.add(self.player)
+
+    @property
+    def width(self):
+        return self._dimensions[0]
+
+    @property
+    def height(self):
+        return self._dimensions[1]
+
+    @width.setter
+    def width(self, value: int):
+        self._dimensions = (value, self._dimensions[1])
+
+    @height.setter
+    def height(self, value: int):
+        self._dimensions = (self._dimensions[0], value)
 
     @property
     def points(self):
@@ -55,6 +86,26 @@ class GameState:
             Points as an integer value.
         """
         return self._points
+
+    def add_points(self, points: int):
+        """Adds the given points value to the total points earned during the game.
+
+        Args:
+            points: value of points to be added.
+        """
+        if points >= 0:
+            self._points += points
+
+    @property
+    def level(self):
+        return self._level
+
+    @property
+    def game_over(self):
+        return self.player.lives == 0
+
+    def increase_level(self):
+        self._level += 1
 
     def _generate_random_spawn_point(self, game_object: SpawnableObject) -> tuple[int, int]:
         """Generate a random spawn point coordinate.
@@ -76,15 +127,6 @@ class GameState:
 
         return x, y
 
-    def add_points(self, points: int):
-        """Adds the given points value to the total points earned during the game.
-
-        Args:
-            points: value of points to be added.
-        """
-        if points >= 0:
-            self._points += points
-
     def spawn_enemy(self, speed: int = 1):
         """Spawn an enemy into the game.
 
@@ -101,6 +143,10 @@ class GameState:
 
         self.sprites.add(enemy)
 
+    def spawn_multiple_enemies(self, enemy_count: int, enemy_speed: int):
+        for _ in range(enemy_count):
+            self.spawn_enemy(enemy_speed)
+
     def _add_game_object_to_group(self, game_object: SpawnableObject, group: Group):
         """Adds the given game object to the given group.
 
@@ -115,6 +161,9 @@ class GameState:
         coord: tuple[int, int] = self._generate_random_spawn_point(game_object)
         game_object.place(*coord)
         group.add(game_object)
+
+    def reset_game_state(self):
+        self._initialize_gameplay_variables()
 
     def populate_level_with_gems(self, amount: int = 1):
         """Populate the level with the given amount of gems.
