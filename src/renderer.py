@@ -1,6 +1,7 @@
 import pygame
 from pygame import Surface
 
+import image_handler
 import ui_text
 from game_engine.game_state import GameState
 
@@ -33,6 +34,11 @@ class Renderer:
         self._display: Surface = display
         self._game_state: GameState = game_state
         self.text_controller: ui_text.UITextController = ui_text.UITextController(game_state)
+        self._initialize_background_()
+
+    def _initialize_background_(self):
+        self.background = image_handler.load_image("castle_dungeon_background.png", alpha=False)
+        self.background = pygame.transform.scale(self.background, (1280, 720))
 
     def render(self):
 
@@ -49,7 +55,8 @@ class Renderer:
         drawing game state sprites, and finally updating the entire display to
         reflect these changes.
         """
-        self._display.fill((255, 255, 255))
+
+        self._display.blit(self.background, (0, 0))
         self.text_controller.update()
         self.render_text_object_groups(ui_text.GAMEPLAY)
         self._game_state.sprites.draw(self._display)

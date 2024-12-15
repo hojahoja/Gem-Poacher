@@ -9,7 +9,7 @@ base_path: AnyStr = os.path.dirname(__file__)
 """Constant for the Base path of the project."""
 
 
-def load_image(filename: str) -> Surface:
+def load_image(filename: str, alpha=True) -> Surface:
     """
     Loads an image from the specified filename and converts it to have an
     alpha channel. This ensures that the image can support transparency. It
@@ -17,6 +17,7 @@ def load_image(filename: str) -> Surface:
 
     Args:
         filename: The name of the file to be loaded, including its extension.
+        alpha: A boolean flag indicating whether you want to preserve the alpha channel
 
     Returns:
         A `Surface` object containing the loaded image with alpha transparency
@@ -24,7 +25,10 @@ def load_image(filename: str) -> Surface:
     """
     image: Surface = pygame.image.load(
         os.path.join(base_path, "assets", filename))
-    image.convert_alpha()
+    if alpha:
+        image.convert_alpha()
+    else:
+        image.convert()
 
     return image
 

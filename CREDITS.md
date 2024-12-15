@@ -21,3 +21,9 @@ distributed under the CC BY-SA 3.0 Licence.
 
 Sourced from:
 https://opengameart.org/node/81284
+
+## Castle Cellar background:
+
+Castle Cellar background was generated with Microsoft Designer and edited by me in GIMP.
+
+Ownership and use set by:  [Microsoft Designer terms of use](https://designer.microsoft.com/termsOfUse.pdf)
