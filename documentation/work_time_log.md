@@ -14,6 +14,8 @@
 |  8.12  |   4   | Docstrings.                                                                                                                                   |
 |  9.12  |   8   | More Docstrings (send help) and missing tests. Yes it took this long.                                                                         |
 | 10.12  |  8.5  | New gameplay features and UI changes. Updated architecture doc and created the user manual.                                                   |
-| total  | 65.5  | Developing like a madman.                                                                                                                     |
+| 14.12  |  3.5  | Generating fixing and designing level background and level class                                                                              |
+| 15.12  |  2.5  | Refactored ui_text class                                                                                                                      |
+| total  | 71.5  | Developing like a madman.                                                                                                                     |
 
  

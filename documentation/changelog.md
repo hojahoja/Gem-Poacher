@@ -59,3 +59,7 @@
     - Game ends after all player lives are lost.
     - Currently just a black screen with new game and quit game options.
 
+## Week 7
+
+- Level background.
+- UITextController separated into UITextController and TextObject Classes.

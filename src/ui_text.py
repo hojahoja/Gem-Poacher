@@ -5,8 +5,7 @@ from pygame import Surface
 from pygame.font import Font
 
 from game_engine.game_state import GameState
-
-type TextObject = tuple[Surface, tuple[int, int]]
+from text_object import TextObject
 
 GAME_OVER_SCREEN: str = "game_over_screen"
 GAME_OVER: str = "game_over"
@@ -90,35 +89,44 @@ class UITextController:
         for easy reference during the game loop.
         """
         font: Font = self.fonts[GAMEPLAY]
+        font_color: tuple[int, int, int] = (230, 215, 165)
 
-        level_text: Surface = font.render(f"Level: {self.game_state.level}", True, (255, 0, 0))
-        lives_text: Surface = font.render(f"Lives: {self.game_state.player.lives}", True,
-                                          (255, 0, 0))
-        points_text: Surface = font.render(f"Points {self.game_state.points}", True,
-                                           (255, 0, 0))
+        level_object: TextObject = TextObject(f"Level: {self.game_state.level}", font_color, font,
+                                              (self.width - 290, self.height - 30))
+        lives_object: TextObject = TextObject(f"Lives: {self.game_state.player.lives}", font_color,
+                                              font, (self.width - 390, self.height - 30))
+        points_object: TextObject = TextObject(f"Points {self.game_state.points}", font_color, font,
+                                               (self.width - 190, self.height - 30))
 
         self.text_objects[GAMEPLAY] = {
-            LEVEL: (level_text, (self.width - 200, 10)),
-            LIVES: (lives_text, (self.width - 320, 10)),
-            POINTS: (points_text, (self.width - 200, self.height - 30))
+            LEVEL: level_object,
+            LIVES: lives_object,
+            POINTS: points_object
         }
 
     def _create_game_over_text_objects(self):
         font: Font = self.fonts[GAME_OVER_SCREEN]
 
-        game_over_text: Surface = font.render("GAME OVER", True, (200, 0, 0))
-        end_options_text: Surface = font.render(f"F1: NEW GAME{" " * 10}ESC: QUIT GAME", True,
-                                                (200, 0, 0))
+        font_color: tuple[int, int, int] = (200, 0, 0)
+        game_over_object: TextObject = TextObject("GAME OVER", font_color, font)
+        end_options_object: TextObject = TextObject("F1: NEW GAME  ESC: QUIT GAME", font_color,
+                                                    font)
+
+        end_surface: Surface = end_options_object.surface
+        game_over_surface: Surface = game_over_object.surface
+
+        end_options_object.location = ((self.width - end_surface.get_width()) // 2,
+                                       (self.height - end_surface.get_height()) // 2)
+
+        game_over_object.location = ((self.width - game_over_surface.get_width()) // 2,
+                                     (self.height - game_over_surface.get_height()) // 2 + 100)
 
         self.text_objects[GAME_OVER_SCREEN] = {
-            GAME_OVER: (game_over_text, ((self.width - game_over_text.get_width()) // 2,
-                                         (self.height - game_over_text.get_height()) // 2)),
-            END_OPTIONS: (end_options_text,
-                          ((self.width - end_options_text.get_width()) // 2,
-                           (self.height - end_options_text.get_height()) // 2 + 100)),
+            GAME_OVER: game_over_object,
+            END_OPTIONS: end_options_object
         }
 
-    def get_text_surface_group(self, group_name: str) -> Iterator[TextObject]:
+    def get_text_surface_group(self, group_name: str) -> Iterator[tuple[Surface, tuple[int, int]]]:
         """Returns an iterator over text `Surface` instances in the specified group.
 
         This method retrieves all TextObject tuples associated with the
@@ -132,7 +140,8 @@ class UITextController:
         Returns:
             Iterator: An iterator over the TextObject tuples in the specified group.
         """
-        return iter(self.text_objects[group_name].values())
+        for text_object in self.text_objects[group_name].values():
+            yield text_object.surface, text_object.location
 
     def _update_text_object(self, group_name: str, object_name: str, text: str):
         """Updates a text object within a specified group
@@ -147,10 +156,7 @@ class UITextController:
             text: The new text to render and update within the specified text
                 object.
         """
-        font: Font = self.fonts[group_name]
-        surface: Surface = font.render(text, True, (255, 0, 0))
-        location: tuple[int, int] = self.text_objects[group_name][object_name][1]
-        self.text_objects[group_name][object_name] = (surface, location)
+        self.text_objects[group_name][object_name].update(text)
 
     def _create_font_types(self):
         """Creates and adds font types to the controller."""
