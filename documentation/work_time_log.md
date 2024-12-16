@@ -10,12 +10,13 @@
 | 26.11  |   5   | Refactoring and writing tests. Package/Class Diagram. Looked into event based architecture for future potential restructure in the future     | 
 |  1.12  |  4.5  | Learning about mock testing in python took some time. Also wrote some of those tests. Commit is after 2 AM 2.12, but work started way before. |
 |  2.12  |   8   | Game state points work, UI text rendering, tests. Player invulnerability handling and fixing test (this took a lot of time)                   |
-|  3.12  |   6   | Messed around with subtests. Implemented enemy characters, their interactions and their and animation. Sequence Diagram.                      |
+|  3.12  |   6   | Messed around with subtests. Implemented enemy characters, their interactions and their animation. Sequence Diagram.                          |
 |  8.12  |   4   | Docstrings.                                                                                                                                   |
 |  9.12  |   8   | More Docstrings (send help) and missing tests. Yes it took this long.                                                                         |
 | 10.12  |  8.5  | New gameplay features and UI changes. Updated architecture doc and created the user manual.                                                   |
 | 14.12  |  3.5  | Generating fixing and designing level background and level class                                                                              |
-| 15.12  |  2.5  | Refactored ui_text class                                                                                                                      |
-| total  | 71.5  | Developing like a madman.                                                                                                                     |
+| 15.12  |  6.0  | Refactored ui_text class. High score background screen.                                                                                       |
+| 16.12  |  10   | Working on endgame screen assets and added configuration file features. Fixing linting issues                                                 |
+| total  |  85   | Developing like a madman.                                                                                                                     |
 
  

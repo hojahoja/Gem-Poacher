@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Group
 
 from sprites import Player, Gem, Enemy
-from .constants import Difficulty
+from utilities.constants import Difficulty
 from .game_state import GameState
 
 type Character = Player | Enemy
@@ -21,7 +21,7 @@ class GameLogic:
           invulnerability period starts.
     """
 
-    def __init__(self, game_state: GameState):
+    def __init__(self, game_state: GameState, custom_settings: ProgressionLogic | None = None):
         """Initialize the game logic.
 
         Initializes the base attributes for the class. Player and Enemy Group
@@ -36,15 +36,18 @@ class GameLogic:
         self.enemies: Group[Enemy] = game_state.enemies
         self._invulnerability_period: int = 1000
         self._invulnerability_period_start: int = 0
-        self._initialize_progression_difficulty_settings()
+        self._initialize_progression_difficulty_settings(custom_settings)
 
-    def _initialize_progression_difficulty_settings(self):
+    def _initialize_progression_difficulty_settings(self, custom_settings: ProgressionLogic | None):
         self._progression_options: list[ProgressionLogic] = [
-            ((1, 10), (1, 2), (2, 2)),
+            ((1, 10), (1, 2), (5, 5)),
             ((2, 6), (2, 3), (4, 4)),
-            ((2, 6), (3, 3), (4, 4)),
+            ((2, 6), (3, 3), (3, 3)),
             ((1, 1), (5, 5), (1, 1)),
+            ((2, 6), (2, 3), (4, 4)),
         ]
+        if custom_settings:
+            self._progression_options.append(custom_settings)
 
     @property
     def game_over(self):

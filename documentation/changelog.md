@@ -63,3 +63,7 @@
 
 - Level background.
 - UITextController separated into UITextController and TextObject Classes.
+- Configuration file in src/config folder.
+    - Pre-set difficulty settings
+    - Custom difficulty options
+    - Player lives
