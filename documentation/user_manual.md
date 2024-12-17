@@ -51,15 +51,15 @@ The game ends when the life counter turns to 0.
 
 #### Player character
 
-![image of player character](../src/assets/thief_right_facing.png)
+![image of player character](../src/assets/images/thief_right_facing.png)
 
 #### Gem
 
-![image of player a blue gem](../src/assets/sapphire.png)
+![image of player a blue gem](../src/assets/images/sapphire.png)
 
 #### Enemy
 
-![image of enemy character](../src/assets/ghost_frame_1.png)
+![image of enemy character](../src/assets/images/ghost_frame_1.png)
 
 #### Player is invulnerable
 

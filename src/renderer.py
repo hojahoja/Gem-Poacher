@@ -4,6 +4,7 @@ from pygame import Surface
 import image_handler
 import ui_text
 from game_engine.game_state import GameState
+from text_box import TextInputBox
 
 
 # Docstrings in this class were written with the help of AI generation.
@@ -37,8 +38,13 @@ class Renderer:
         self._initialize_background_()
 
     def _initialize_background_(self):
-        self.background = image_handler.load_image("castle_dungeon_background.png", alpha=False)
-        self.background = pygame.transform.scale(self.background, (1280, 720))
+        self.background = image_handler.load_image("castle_dungeon_background.png", False,
+                                                   (1280, 720))
+        # temp
+        self.end_background = image_handler.load_image("end_game.png", False, (1280, 720))
+
+        # self.text_box = TextInputBox((240, 271), "Enter Your Name", scale=720 / 1008)
+        self.text_box = TextInputBox((100, 200), "Enter Your Name")
 
     def render(self):
 
@@ -63,8 +69,12 @@ class Renderer:
         pygame.display.update()
 
     def _game_over_screen(self):
-        self._display.fill((0, 0, 0))
-        self.render_text_object_groups(ui_text.GAME_OVER_SCREEN)
+        self._display.blit(self.end_background, (0, 0))
+
+        # self._display.blit(self.text_box, (240, 274))
+        self.text_box.draw(self._display)
+        # self.render_text_object_groups(ui_text.GAME_OVER_SCREEN)
+
         pygame.display.update()
 
     def redraw_game_play_text(self):

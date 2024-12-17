@@ -67,3 +67,5 @@
     - Pre-set difficulty settings
     - Custom difficulty options
     - Player lives
+- Different look for endgame screen
+- TextInputBox UI-component (not fully functional)

@@ -17,6 +17,7 @@
 | 14.12  |  3.5  | Generating fixing and designing level background and level class                                                                              |
 | 15.12  |  6.0  | Refactored ui_text class. High score background screen.                                                                                       |
 | 16.12  |  10   | Working on endgame screen assets and added configuration file features. Fixing linting issues                                                 |
-| total  |  85   | Developing like a madman.                                                                                                                     |
+| 17.12  |   5   | InputTextBox class design and refactoring related to it.                                                                                      |
+| total  |  90   | Developing like a madman.                                                                                                                     |
 
  
