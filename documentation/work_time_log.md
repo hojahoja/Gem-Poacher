@@ -15,9 +15,10 @@
 |  9.12  |   8   | More Docstrings (send help) and missing tests. Yes it took this long.                                                                         |
 | 10.12  |  8.5  | New gameplay features and UI changes. Updated architecture doc and created the user manual.                                                   |
 | 14.12  |  3.5  | Generating fixing and designing level background and level class                                                                              |
-| 15.12  |  6.0  | Refactored ui_text class. High score background screen.                                                                                       |
+| 15.12  |   6   | Refactored ui_text class. High score background screen.                                                                                       |
 | 16.12  |  10   | Working on endgame screen assets and added configuration file features. Fixing linting issues                                                 |
 | 17.12  |   5   | InputTextBox class design and refactoring related to it.                                                                                      |
-| total  |  90   | Developing like a madman.                                                                                                                     |
+| 18.12  |   8   | refactored render into renderer and ui_manager class start. Bug fixing and working textbox class                                              |
+| total  |  98   | Developing like a madman.                                                                                                                     |
 
  

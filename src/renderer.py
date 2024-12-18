@@ -1,10 +1,7 @@
 import pygame
 from pygame import Surface
 
-import image_handler
-import ui_text
-from game_engine.game_state import GameState
-from text_box import TextInputBox
+from ui_manager import UIManager
 
 
 # Docstrings in this class were written with the help of AI generation.
@@ -22,73 +19,24 @@ class Renderer:
             according to the game state.
     """
 
-    def __init__(self, display: Surface, game_state: GameState):
+    def __init__(self, display: Surface, ui_manager: UIManager):
         """Initializes the renderer.
 
-        Sets up the display surface and text controller for rendering.
+        Sets up the display surface and UI manager rendering.
         Keeps a reference to game state and uses it to update the game visuals.
 
         Args:
             display: The display surface where the game's UI elements will be rendered.
-            game_state: The current state of the game that the UI will interact with.
+            ui_manager: Gives renderer the objects it needs to render based on games states
         """
         self._display: Surface = display
-        self._game_state: GameState = game_state
-        self.text_controller: ui_text.UITextController = ui_text.UITextController(game_state)
-        self._initialize_background_()
-
-    def _initialize_background_(self):
-        self.background = image_handler.load_image("castle_dungeon_background.png", False,
-                                                   (1280, 720))
-        # temp
-        self.end_background = image_handler.load_image("end_game.png", False, (1280, 720))
-
-        # self.text_box = TextInputBox((240, 271), "Enter Your Name", scale=720 / 1008)
-        self.text_box = TextInputBox((100, 200), "Enter Your Name")
+        self.ui_manager = ui_manager
 
     def render(self):
-
-        if not self._game_state.game_over:
-            self._gameplay_screen()
-        else:
-            self._game_over_screen()
-
-    def _gameplay_screen(self):
-        """Handles rendering of the display during gameplay.
-
-        This method updates the display elements including filling the background,
-        updating the text controller, rendering text objects for the gameplay UI,
-        drawing game state sprites, and finally updating the entire display to
-        reflect these changes.
-        """
-
-        self._display.blit(self.background, (0, 0))
-        self.text_controller.update()
-        self.render_text_object_groups(ui_text.GAMEPLAY)
-        self._game_state.sprites.draw(self._display)
+        self.ui_manager.update()
+        self._display.blits((self.ui_manager.get_renderable_surfaces()))
+        self.ui_manager.draw_callbacks(self._display)
         pygame.display.update()
 
-    def _game_over_screen(self):
-        self._display.blit(self.end_background, (0, 0))
-
-        # self._display.blit(self.text_box, (240, 274))
-        self.text_box.draw(self._display)
-        # self.render_text_object_groups(ui_text.GAME_OVER_SCREEN)
-
-        pygame.display.update()
-
-    def redraw_game_play_text(self):
-        self.text_controller.update(force_update=True)
-
-    def render_text_object_groups(self, group_name: str):
-        """Renders text objects from a specified group.
-
-        Renders all text objects associated with a specified group name onto the display
-        surface. It retrieves text surfaces from a text controller and blits them onto
-        the main display screen.
-
-        Args:
-            group_name: The name of the group whose text surfaces are to be rendered.
-        """
-        for text_object in self.text_controller.get_text_surface_group(group_name):
-            self._display.blit(*text_object)
+    def distribute_ui_events(self, event: pygame.event.Event):
+        self.ui_manager.handle_ui_events(event)

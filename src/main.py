@@ -5,6 +5,7 @@ import pygame
 
 from game_engine import Clock, EventQueue, GameLogic, GameLoop, GameState
 from renderer import Renderer
+from ui_manager import UIManager
 from utilities.config_manager import ConfigManager
 
 base_path: str = os.path.dirname(__file__)
@@ -50,10 +51,13 @@ def _initialize_loop_components(config: ConfigManager) -> tuple:
     game_state: GameState = GameState(width, height, difficulty, player_lives)
     game_logic: GameLogic = GameLogic(game_state, custom_settings)
 
-    renderer: Renderer = Renderer(display, game_state)
+    event_queue = EventQueue()
+
+    ui_manager: UIManager = UIManager(game_state)
+
+    renderer: Renderer = Renderer(display, ui_manager)
 
     clock: Clock = Clock()
-    event_queue = EventQueue()
 
     return game_logic, renderer, clock, event_queue
 

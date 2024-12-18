@@ -180,8 +180,7 @@ class GameLogic:
             self._game_state.spawn_enemy(speed=1)
             self._game_state.populate_level_with_gems(5)
 
-    def start_new_game(self, difficulty: Difficulty = Difficulty.MEDIUM):
-        self._game_state.difficulty = difficulty
+    def start_new_game(self):
         self._game_state.populate_level_with_gems(5)
         self._game_state.spawn_multiple_enemies(enemy_count=3, enemy_speed=1)
         self.activate_player_invulnerability()

@@ -163,20 +163,23 @@ class UITextController:
         self.fonts[GAMEPLAY] = pygame.font.SysFont("Arial", 24)
         self.fonts[GAME_OVER_SCREEN] = pygame.font.SysFont("Arial", 48)
 
-    def update(self, force_update: bool = False):
+    def update(self):
         """Callable method to update the text objects in the UI.
 
         Checks whether relevant game state values have changed and calls a method
         to update the changed text objects.
         """
         current_lives: int = self.game_state.player.lives
-        if self.text_states[LIVES] != current_lives or force_update:
+        if self.text_states[LIVES] != current_lives:
             self._update_text_object(GAMEPLAY, LIVES, f"Lives: {current_lives}")
+            self.text_states[LIVES] = current_lives
 
         current_points: int = self.game_state.points
-        if self.text_states[POINTS] != current_points or force_update:
+        if self.text_states[POINTS] != current_points:
             self._update_text_object(GAMEPLAY, POINTS, f"Points: {current_points}")
+            self.text_states[POINTS] = current_points
 
         current_level: int = self.game_state.level
-        if self.text_states[LEVEL] != current_level or force_update:
+        if self.text_states[LEVEL] != current_level:
             self._update_text_object(GAMEPLAY, LEVEL, f"Level: {current_level}")
+            self.text_states[LEVEL] = current_level

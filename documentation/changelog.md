@@ -68,4 +68,5 @@
     - Custom difficulty options
     - Player lives
 - Different look for endgame screen
-- TextInputBox UI-component (not fully functional)
+- TextInputBox UI-component in endgame screen
+- Renderer and split into render and Ui manager.

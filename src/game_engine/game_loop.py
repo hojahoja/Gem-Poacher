@@ -59,6 +59,7 @@ class GameLoop:
                 if event.key == pygame.K_F1:
                     self._game_logic.reset_game()
                     self._game_logic.start_new_game()
-                    self._renderer.redraw_game_play_text()
                 elif event.key == pygame.K_ESCAPE:
                     self._running = False
+                else:
+                    self._renderer.distribute_ui_events(event)

@@ -5,3 +5,6 @@ omit =
     src/ui_text.py
     src/renderer.py
     src/image_handler.py
+    src/ui_manager.py
+    src/text_box.py
+    src/text_object.py
