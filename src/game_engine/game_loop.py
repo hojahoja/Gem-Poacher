@@ -1,6 +1,6 @@
 import pygame
 
-from renderer import Renderer
+from ui.renderer import Renderer
 from .clock import Clock
 from .event_queue import EventQueue
 from .game_logic import GameLogic

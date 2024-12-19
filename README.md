@@ -70,6 +70,22 @@ Run pylint for the src folder with:
 poetry run invoke lint
 ```
 
+### Config
+
+This will recreate the default config.ini file inside src/config/
+
+```sh
+poetry run invoke create-config
+```
+
+### Database
+
+This will recreate the database (note all high scores will be lost)
+
+```sh
+poetry run invoke create-database
+```
+
 ## Information about the original version
 
 This game was originally my final submission for the

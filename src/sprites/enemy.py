@@ -1,7 +1,7 @@
 import pygame
 from pygame import Surface, Rect
 
-import image_handler
+from utilities import image_handler
 
 FRAME_SWAP_RATE: int = 167
 """Constant rate value used for animating the Enemy sprite."""

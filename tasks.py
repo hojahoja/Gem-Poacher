@@ -45,3 +45,13 @@ def lint(ctx):
 @task
 def auto_format(ctx):
     platform_agnostic_command(ctx, "autopep8 --in-place --recursive src")
+
+
+@task
+def create_config(ctx):
+    platform_agnostic_command(ctx, "python src/generate_config.py")
+
+
+@task
+def create_database(ctx):
+    platform_agnostic_command(ctx, "python src/initialize_database.py")

@@ -1,14 +1,12 @@
-import os
 import sys
 
 import pygame
 
 from game_engine import Clock, EventQueue, GameLogic, GameLoop, GameState
-from renderer import Renderer
-from ui_manager import UIManager
+from ui.renderer import Renderer
+from ui.ui_manager import UIManager
 from utilities.config_manager import ConfigManager
 
-base_path: str = os.path.dirname(__file__)
 type ProgressionLogic = tuple[tuple[int, int], tuple[int, int], tuple[int, int]]
 
 

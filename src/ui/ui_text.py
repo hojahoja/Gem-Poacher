@@ -5,7 +5,7 @@ from pygame import Surface
 from pygame.font import Font
 
 from game_engine.game_state import GameState
-from text_object import TextObject
+from ui.text_object import TextObject
 
 GAME_OVER_SCREEN: str = "game_over_screen"
 GAME_OVER: str = "game_over"

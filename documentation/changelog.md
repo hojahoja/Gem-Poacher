@@ -64,9 +64,18 @@
 - Level background.
 - UITextController separated into UITextController and TextObject Classes.
 - Configuration file in src/config folder.
-    - Pre-set difficulty settings
-    - Custom difficulty options
-    - Player lives
-- Different look for endgame screen
-- TextInputBox UI-component in endgame screen
+    - Pre-set difficulty settings.
+    - Custom difficulty options.
+    - Player lives.
+- Different look for endgame screen.
+- TextInputBox UI-component in endgame screen.
 - Renderer and split into render and Ui manager.
+- Database for storing scores.
+    - Get and add players and scores.
+    - Currently, works only through code.
+    - User can choose the database filename in the config file.
+- Invoke task for creating a configuration file and score database.
+- Finally refactored everything into logical packages.
+    - UI files are all under ui package (except sprites).
+    - Database and database management files under database package.
+    - Src will only directly contain .py files that are intended for running from the outside.

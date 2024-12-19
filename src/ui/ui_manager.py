@@ -1,17 +1,17 @@
 import itertools
 from itertools import chain
-from typing import Callable, TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING
 
 import pygame
-from pygame import Surface, Rect
+from pygame import Surface
 
-import image_handler
-import ui_text
-from text_box import TextInputBox
-from ui_text import UITextController
+from utilities import image_handler
+from ui import ui_text
+from ui.text_box import TextInputBox
+from ui.ui_text import UITextController
 
 if TYPE_CHECKING:
-    from game_engine import GameState, EventQueue
+    from game_engine import GameState
 
 
 class UIManager:

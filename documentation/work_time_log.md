@@ -18,7 +18,8 @@
 | 15.12  |   6   | Refactored ui_text class. High score background screen.                                                                                       |
 | 16.12  |  10   | Working on endgame screen assets and added configuration file features. Fixing linting issues                                                 |
 | 17.12  |   5   | InputTextBox class design and refactoring related to it.                                                                                      |
-| 18.12  |   8   | refactored render into renderer and ui_manager class start. Bug fixing and working textbox class                                              |
-| total  |  98   | Developing like a madman.                                                                                                                     |
+| 18.12  |   8   | Refactored render into renderer and ui_manager class start. Bug fixing and working textbox class.                                             |
+| 19.12  |  10   | Working on database for scores and surrounding tweaks required for it.                                                                        |
+| total  |  108  | Developing like a madman.                                                                                                                     |
 
  

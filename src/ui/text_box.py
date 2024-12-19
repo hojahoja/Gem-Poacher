@@ -4,8 +4,8 @@ import pygame.font
 from pygame import Surface
 from pygame.font import Font
 
-import image_handler
-from text_object import TextObject
+from utilities import image_handler
+from ui.text_object import TextObject
 
 from utilities.constants import Folder
 

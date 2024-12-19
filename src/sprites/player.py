@@ -1,7 +1,7 @@
 import pygame
 from pygame import Surface
 
-import image_handler
+from utilities import image_handler
 
 
 # Docstrings in this class were written with the help of AI generation.

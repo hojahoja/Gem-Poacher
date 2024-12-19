@@ -2,7 +2,6 @@ import pygame
 from pygame.sprite import Group
 
 from sprites import Player, Gem, Enemy
-from utilities.constants import Difficulty
 from .game_state import GameState
 
 type Character = Player | Enemy

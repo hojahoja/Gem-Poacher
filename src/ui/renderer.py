@@ -1,7 +1,10 @@
+from typing import TYPE_CHECKING
+
 import pygame
 from pygame import Surface
 
-from ui_manager import UIManager
+if TYPE_CHECKING:
+    from ui.ui_manager import UIManager
 
 
 # Docstrings in this class were written with the help of AI generation.
@@ -19,7 +22,7 @@ class Renderer:
             according to the game state.
     """
 
-    def __init__(self, display: Surface, ui_manager: UIManager):
+    def __init__(self, display: Surface, ui_manager: "UIManager"):
         """Initializes the renderer.
 
         Sets up the display surface and UI manager rendering.

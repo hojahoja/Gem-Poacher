@@ -1,7 +1,6 @@
 import configparser
-import os
 from configparser import ConfigParser
-from typing import AnyStr
+from pathlib import Path
 
 from utilities import constants
 
@@ -13,7 +12,7 @@ class ConfigManager:
 
     def __init__(self):
         self._config: ConfigParser = ConfigParser(allow_no_value=True)
-        self._config_path: AnyStr = os.path.join(constants.Folder.CONFIG_DIR, "config.ini")
+        self._config_path: Path = Path(constants.Folder.CONFIG_DIR) / "config.ini"
 
     def _set_default_configs(self):
         self._config["GAME SETTINGS"] = {
@@ -23,6 +22,13 @@ class ConfigManager:
             "fps": "120",
             "; Options: EASY, MEDIUM, HARD, LUDICROUS, CUSTOM": None,
             "difficulty": "MEDIUM"
+        }
+
+    def _set_database_configs(self):
+
+        self._config["DATABASE SETTINGS"] = {
+            "; filename of the db file in src/database folder": None,
+            "database path": "score.db"
         }
 
     def _set_difficulty_settings(self):
@@ -45,8 +51,9 @@ class ConfigManager:
 
     def create_config(self, force: bool = False):
 
-        if not os.path.exists(self._config_path) or force:
+        if not self._config_path.exists() or force:
             self._set_default_configs()
+            self._set_database_configs()
             self._set_difficulty_settings()
 
             try:
@@ -55,6 +62,17 @@ class ConfigManager:
             except IOError as exception:
                 print("Something went wrong while creating config:")
                 print(repr(exception))
+
+    def get_database_path(self) -> None | str:
+        path: None | str = None
+        try:
+            self._config.read(self._config_path)
+            filename: str = self._config.get("DATABASE SETTINGS", "database path")
+            path = str(Path(constants.Folder.DATABASE_DIR) / filename)
+        except Exception as exception:
+            _config_exceptionhandler(exception)
+
+        return path
 
     def get_difficulty(self) -> int:
         difficulty: int = constants.Difficulty.MEDIUM
