@@ -15,13 +15,14 @@ class ScoreManager:
 
     def _init_score_list_(self):
         scores: list[ScoreTuple] = self._score_service.get_scores()
-        self.scores: list[Score] = [Score(name, level, points, time) for name, level, points, time
-                                    in scores]
+        self._scores: list[Score] = [Score(name, level, points, time) for name, level, points, time
+                                     in scores]
 
-    def add_score(self, name: str, level: int, points):
-        time: datetime = datetime.now()
-        self._score_service.add_new_score(name, level, points, time)
-        bisect.insort_right(self.scores, Score(name, level, points, str(time)))
+    def add_score(self, name: str, level: int, points: int):
+        if points > 0:
+            time: datetime = datetime.now()
+            self._score_service.add_new_score(name, level, points, time)
+            bisect.insort_right(self._scores, Score(name, level, points, str(time)))
 
-    def get_scores(self):
-        return self.scores
+    def get_scores(self) -> list[Score]:
+        return self._scores

@@ -32,3 +32,7 @@ class TextObject:
     @property
     def surface(self) -> Surface:
         return self._surface
+
+    @property
+    def text(self) -> str:
+        return self._text

@@ -72,8 +72,11 @@
 - Renderer and split into render and Ui manager.
 - Database for storing scores.
     - Get and add players and scores.
-    - Currently, works only through code.
     - User can choose the database filename in the config file.
+- Game Over screen.
+    - Fully functional textbox for inputting player names.
+    - Stores names and score in the database.
+    - Pagination for score pages (shows 10 at a time).
 - Invoke task for creating a configuration file and score database.
 - Finally refactored everything into logical packages.
     - UI files are all under ui package (except sprites).

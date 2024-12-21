@@ -11,15 +11,15 @@ class ScoreService:
 
     def __init__(self, connection: "Connection"):
         self.connection: Connection = connection
-        self._init_player_ids()
 
     def _insert_player(self, name: str) -> int:
         cursor: Cursor = self.connection.cursor()
 
-        sql: str = "INSERT INTO players (name) VALUES (?);"
-
+        sql: str = "INSERT or IGNORE INTO players (name) VALUES (?);"
         cursor.execute(sql, (name,))
-        player_id: int = cursor.lastrowid
+
+        sql: str = "SELECT id FROM players WHERE name = ?;"
+        player_id: int = cursor.execute(sql, (name,)).fetchone()[0]
         self.connection.commit()
 
         return player_id
@@ -32,18 +32,8 @@ class ScoreService:
         cursor.execute(sql, (player_id, level, points, time))
         self.connection.commit()
 
-    def _init_player_ids(self):
-        cursor: Cursor = self.connection.cursor()
-        sql: str = "SELECT name, id FROM players;"
-        result: list[tuple[str, int]] = cursor.execute(sql).fetchall()
-
-        self.players: dict[str, int] = {name: player_id for name, player_id in result}
-
     def add_new_score(self, name: str, level: int, points: int, time: datetime):
-        if name not in self.players:
-            player_id: int = self._insert_player(name)
-        else:
-            player_id: int = self.players[name]
+        player_id: int = self._insert_player(name)
 
         self._insert_score(player_id, level, points, time)
 

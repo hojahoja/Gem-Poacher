@@ -2,9 +2,4 @@
 source = src
 omit =
     src/**/__init__.py,src/tests/**
-    src/ui_text.py
-    src/renderer.py
-    src/image_handler.py
-    src/ui_manager.py
-    src/text_box.py
-    src/text_object.py
+    src/ui/**

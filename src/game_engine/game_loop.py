@@ -44,8 +44,8 @@ class GameLoop:
             self._renderer.render()
             self._clock.tick(120)
 
-            # FIXME: game should not update when game is over
-            self._game_logic.update()
+            if not self._game_logic.game_over:
+                self._game_logic.update()
 
     def _pygame_event_handler(self):
         for event in self._event_queue.get():
@@ -56,7 +56,7 @@ class GameLoop:
                 self._running = False
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_F1:
+                if event.key == pygame.K_F4:
                     self._game_logic.reset_game()
                     self._game_logic.start_new_game()
                 elif event.key == pygame.K_ESCAPE:

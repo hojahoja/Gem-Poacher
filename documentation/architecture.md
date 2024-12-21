@@ -102,18 +102,20 @@ sequenceDiagram
 
 ## Issues
 
-### No permanent saves
+All issues below have been fixed. This section will be updated later
 
+~~No permanent saves\
+\
 The game doesn't currently have any functionality to save players high scores. This is a key
-feature that will be implemented soon.
-
-### Game logic keeps running
-
+feature that will be implemented soon.\
+\
+Game logic keeps running\
+\
 The game logic keeps running in the background even during the game over screen.
-Visually this doesn't affect the user in any way, but it is unnecessary.
-
-### No configurability
-
+Visually this doesn't affect the user in any way, but it is unnecessary.\
+\
+No configurability\
+\
 The game has some configuration options for gameplay behavior and difficulty implemented in
 the code, but as of now there's no way for a regular user to access them without just changing
-the source code.
+the source code.~~

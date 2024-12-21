@@ -10,6 +10,7 @@ class GameLoopTest(unittest.TestCase):
 
     def setUp(self):
         self.game_logic = Mock()
+
         self.renderer = Mock()
         self.clock = Mock()
 
@@ -38,5 +39,11 @@ class GameLoopTest(unittest.TestCase):
         self.clock.tick.assert_called_once_with(120)
 
     def test_run_calls_game_logic_update(self):
+        self.game_logic.game_over = False
         self.game_loop.run()
         self.game_logic.update.assert_called_once()
+
+    def test_run_doesnt_call_game_logic_update_when_game_is_over(self):
+        self.game_logic.game_over = True
+        self.game_loop.run()
+        self.game_logic.update.assert_not_called()
