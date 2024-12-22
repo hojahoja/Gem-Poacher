@@ -50,6 +50,14 @@ class GameLogic:
 
     @property
     def game_over(self):
+        """This property checks if the current game state indicates that the game is over.
+
+        Accesses the underlying game state object to determine if the game-over
+        condition has been met.
+
+        Returns:
+            True if the game is over, otherwise False.
+        """
         return self._game_state.game_over
 
     def move_player(self, x: int = 0, y: int = 0):
@@ -164,6 +172,12 @@ class GameLogic:
         self._invulnerability_period_start = pygame.time.get_ticks()
 
     def _progress_to_next_level(self):
+        """Manages the progression to the next in the game by evaluating the current game state.
+
+        Increments the level by one by calling game_state.increase_level method.
+        The progression logic then determines the thresholds for levels at which enemy speeds
+        and gem counts required are increased or decreased as determined by the difficulty settings.
+        """
         self._game_state.increase_level()
 
         level: int = self._game_state.level
@@ -180,11 +194,24 @@ class GameLogic:
             self._game_state.populate_level_with_gems(5)
 
     def start_new_game(self):
+        """Starts a new game and initializes necessary game components.
+
+        This method sets up a new game session by populating the game level
+        with a specified number of gems, spawning a set number of enemies with
+        their base speed, and activating player invulnerability to ensure initial game readiness.
+        """
+
         self._game_state.populate_level_with_gems(5)
         self._game_state.spawn_multiple_enemies(enemy_count=3, enemy_speed=1)
         self.activate_player_invulnerability()
 
     def reset_game(self):
+        """ Resets the game to its initial state.
+
+        This method reinitializes the game state to its default configuration, ensuring
+        that all game objects, such as the player and enemies, are reset and ready for
+        a new game session. It also resets the invulnerability period.
+        """
         self._game_state.reset_game_state()
         self._invulnerability_period_start = 0
         self.player = self._game_state.player

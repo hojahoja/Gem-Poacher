@@ -22,7 +22,7 @@
 | 19.12  |  10   | Working on database for scores and surrounding tweaks required for it.                                                                        |
 | 20.12  |  10   | Finished most of intended main functionality.                                                                                                 |
 | 21.12  |  11   | Updated user manual, added tests, fixed some bugs.                                                                                            |
-| 22.12  |   8   | More tests. Minor fixes. Mostly writing docs and docstrings.                                                                                  |
-| total  |  137  | Developing like a madman.                                                                                                                     |
+| 22.12  |  11   | More tests. Minor fixes. Mostly writing docs and docstrings.                                                                                  |
+| total  |  140  | Developing like a madman.                                                                                                                     |
 
  
