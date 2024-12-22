@@ -18,13 +18,12 @@ class GameState:
     to use them.
 
     Attributes:
-        width: The width of the game window.
-        height: The height of the game window.
+        _state_variables: Maintains internal state variables like
+            lives, difficulty, height, width, points, and level.
         player: Instance of Player class.
         gems: pygame sprite group class that contains gem sprites.
         enemies: pygame sprite group class that contains enemy sprites.
         sprites: pygame sprite group class that contains all game sprites.
-        _points: Total number of points earned during the game.
     """
 
     def __init__(self, width: int, height: int, difficulty: int = Difficulty.MEDIUM,
@@ -38,6 +37,8 @@ class GameState:
         Args:
             width: The width of the game window.
             height: The height of the game window.
+            difficulty: Difficulty level of the game.
+            lives: Number of lives the player has initially.
         """
         self._state_variables: dict[str, int] = {
             "initial_lives": lives,
@@ -158,6 +159,15 @@ class GameState:
         self.sprites.add(enemy)
 
     def spawn_multiple_enemies(self, enemy_count: int, enemy_speed: int):
+        """ Spawns multiple enemies with the specified count and speed.
+
+        This function iterates over the given enemy count and spawns enemies with a uniform
+        speed using the spawn_enemy method.
+
+        Args:
+            enemy_count: The number of enemies to spawn.
+            enemy_speed: The speed of the enemies to be spawned.
+        """
         for _ in range(enemy_count):
             self.spawn_enemy(enemy_speed)
 
