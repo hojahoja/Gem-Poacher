@@ -82,3 +82,6 @@
     - UI files are all under ui package (except sprites).
     - Database and database management files under database package.
     - Src will only directly contain .py files that are intended for running from the outside.
+- Made Clock class keep FPS information to support changing FPS in configurations down the line.
+- Added tests to most new features in game_engine.
+- Added tests to some features of configuration manager (uses .ini file) and score manager (uses database).
