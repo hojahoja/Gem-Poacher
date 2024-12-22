@@ -28,7 +28,7 @@ class GameState:
     """
 
     def __init__(self, width: int, height: int, difficulty: int = Difficulty.MEDIUM,
-                 lives: int = 18):
+                 lives: int = 10):
         """Initialize the game state.
 
         Keeps track of the game width and height variables. Initializes the sprites
@@ -54,10 +54,11 @@ class GameState:
         so it can be called when resetting the game state.
         """
 
+        lives: int = self._state_variables["initial_lives"]
+
         if self.difficulty != Difficulty.CUSTOM:
-            lives = 18 // (self.difficulty + 1)
-        else:
-            lives = self._state_variables["initial_lives"]
+            lives = lives // (self.difficulty + 1)
+
         self.player: Player = Player(player_lives=lives)
         self.gems: Group = Group()
         self.enemies: Group = Group()
@@ -88,8 +89,8 @@ class GameState:
         return self._state_variables["difficulty"]
 
     @difficulty.setter
-    def difficulty(self, difficulty: Difficulty):
-        self._state_variables["difficulty"] = difficulty.value
+    def difficulty(self, difficulty: int):
+        self._state_variables["difficulty"] = difficulty
 
     @property
     def points(self):
@@ -107,7 +108,7 @@ class GameState:
             points: value of points to be added.
         """
         if points >= 0:
-            self._state_variables["points"] += points
+            self._state_variables["points"] += points * (self.difficulty + 1)
 
     @property
     def level(self):

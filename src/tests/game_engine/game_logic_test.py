@@ -68,11 +68,15 @@ class StubGameState:
         self.sprites.add(self.gems)
         self.sprites.add(self.enemies)
 
+        self.game_over = False
         self.populate_called = 0
+        self.populate_amount = 0
         self.spawn_enemy_called = []
+        self.reset_game_state_called = 0
 
     def populate_level_with_gems(self, amount: int = 1):
         self.populate_called += 1
+        self.populate_amount = amount
 
     def add_points(self, value):
         self.points += value
@@ -83,6 +87,21 @@ class StubGameState:
     def spawn_enemy(self, speed=0):
         self.spawn_enemy_called.append(speed)
 
+    def spawn_multiple_enemies(self, enemy_count, enemy_speed):
+        for _ in range(enemy_count):
+            self.spawn_enemy(enemy_speed)
+
+    def reset_game_state(self):
+        self.reset_game_state_called += 1
+        self.player = StubPlayer(lives=2)
+        self.enemies = Group()
+
+        self.enemies.add(StubEnemy())
+        self.enemies.add(StubEnemy())
+        self.sprites.add(self.player)
+        self.sprites.add(self.gems)
+        self.sprites.add(self.enemies)
+
 
 class GameLogicTest(unittest.TestCase):
 
@@ -92,7 +111,7 @@ class GameLogicTest(unittest.TestCase):
 
         self.player.rect.center = (420, 420)
 
-        self.game_logic = GameLogic(self.game_state)
+        self.game_logic = GameLogic(self.game_state, ((3, 6), (2, 3), (2, 3)))
 
     def test_moves_player_position_correctly(self):
         self.assertEqual((420, 420), self.player.rect.center)
@@ -178,6 +197,12 @@ class GameLogicTest(unittest.TestCase):
         self.game_logic.update()
         self.assertEqual(1, self.game_state.populate_called)
 
+    def test_player_collecting_the_last_gem_increases_level(self):
+        self.game_state.level = 2
+        self.game_logic.move_player(800, 800)
+        self.game_logic.update()
+        self.assertEqual(3, self.game_state.level)
+
     def test_player_taking_damage_activates_invulnerability(self):
         self.game_logic.move_player(0, 300)
         self.game_logic.update()
@@ -245,3 +270,98 @@ class GameLogicTest(unittest.TestCase):
         self.game_logic.update()
 
         self.assertEqual(4, self.player.lives)
+
+    def test_initializes_correctly_without_custom_difficulty_setting(self):
+        initial_length = len(self.game_logic._progression_options)
+
+        self.game_state = StubGameState()
+        self.player = self.game_state.player
+        self.player.rect.center = (420, 420)
+        self.game_logic = GameLogic(self.game_state)
+
+        self.assertEqual(initial_length - 1, len(self.game_logic._progression_options))
+
+    def test_initializes_correctly_with_custom_difficulty_setting(self):
+        initial_length = len(self.game_logic._progression_options)
+
+        self.game_state = StubGameState()
+        self.player = self.game_state.player
+        self.player.rect.center = (420, 420)
+        self.game_logic = GameLogic(self.game_state, ((0, 0), (0, 0), (0, 0)))
+
+        self.assertEqual(initial_length, len(self.game_logic._progression_options))
+
+    def test_game_over_returns_correct_value(self):
+        with self.subTest(game_over=False):
+            self.assertFalse(self.game_logic.game_over)
+
+        with self.subTest(game_over=True):
+            self.game_state.game_over = True
+            self.assertTrue(self.game_logic.game_over)
+
+    def test_difficulty_progression_spawns_enemy_with_correct_speed(self):
+
+        self.game_state.difficulty = -1
+        test_cases = (
+            (1, 1), (2, 2), (3, 2), (4, 2), (5, 3), (6, 3), (7, 3)
+        )
+
+        for level, expected_speed in test_cases:
+            with self.subTest(level=level, expected_speed=expected_speed):
+                self.game_state.gems.add(StubGem(800, 800, ))
+                self.game_state.level = level
+                self.game_logic.move_player(800, 800)
+                self.game_logic.update()
+
+                self.assertEqual(expected_speed, self.game_state.spawn_enemy_called.pop())
+
+    def test_difficulty_progression_spawns_correct_amount_of_gems(self):
+
+        self.game_state.difficulty = -1
+
+        # ((3, 6), (2, 3), (2, 3)))
+        test_cases = (
+            (1, 5), (2, 5), (3, 6), (4, 7), (5, 9), (6, 10), (7, 11)
+        )
+
+        for level, expected_gem_count in test_cases:
+            with self.subTest(level=level, expected_gem_count=expected_gem_count):
+                self.game_state.gems.add(StubGem(800, 800, ))
+                self.game_state.level = level
+                self.game_logic.move_player(800, 800)
+                self.game_logic.update()
+
+                self.assertEqual(expected_gem_count, self.game_state.populate_amount)
+
+    def test_start_new_game_starts_the_game_with_correct_conditions(self):
+        self.game_logic.start_new_game()
+
+        with self.subTest(expected_gem_count=5):
+            self.assertEqual(5, self.game_state.populate_amount)
+
+        with self.subTest(expected_enemy_count=3):
+            self.assertEqual(3, len(self.game_state.spawn_enemy_called))
+
+        with self.subTest(player_vulnerable=False):
+            self.assertFalse(self.player.vulnerable)
+
+    def test_reset_game_calls_reset_game_state_method(self):
+        self.game_logic.reset_game()
+        self.assertEqual(1, self.game_state.reset_game_state_called)
+
+    def test_reset_game_resets_invulnerability_period(self):
+        self.game_logic._invulnerability_period_start = 100
+        self.game_logic.reset_game()
+        self.assertEqual(0, self.game_logic._invulnerability_period_start)
+
+    def test_reset_game_creates_new_player_character(self):
+        player = self.game_state.player
+        self.game_logic.reset_game()
+
+        self.assertNotEqual(player, self.game_state.player)
+
+    def test_reset_game_creates_new_enemy_group(self):
+        enemies = self.game_state.enemies
+        self.game_logic.reset_game()
+
+        self.assertNotEqual(enemies, self.game_state.enemies)

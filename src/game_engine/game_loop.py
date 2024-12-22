@@ -42,7 +42,7 @@ class GameLoop:
             self._pygame_event_handler()
 
             self._renderer.render()
-            self._clock.tick(120)
+            self._clock.tick()
 
             if not self._game_logic.game_over:
                 self._game_logic.update()

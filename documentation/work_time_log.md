@@ -20,7 +20,8 @@
 | 17.12  |   5   | InputTextBox class design and refactoring related to it.                                                                                      |
 | 18.12  |   8   | Refactored render into renderer and ui_manager class start. Bug fixing and working textbox class.                                             |
 | 19.12  |  10   | Working on database for scores and surrounding tweaks required for it.                                                                        |
-| 20.12  |  10   |                                                                                                                                               |
-| total  |  118  | Developing like a madman.                                                                                                                     |
+| 20.12  |  10   | Finished most of intended main functionality.                                                                                                 |
+| 21.12  |  11   | Updated user manual, added tests, fixed some bugs.                                                                                            |
+| total  |  129  | Developing like a madman.                                                                                                                     |
 
  

@@ -44,15 +44,15 @@ def _initialize_loop_components(config: ConfigManager, connection: Connection) -
     display: pygame.Surface = pygame.display.set_mode((width, height))
 
     difficulty: int = config.get_difficulty()
-    custom_settings: ProgressionLogic | None = None
-    player_lives: int = 18
 
     if difficulty == -1:
         custom_settings = config.get_custom_difficulty_settings()
         player_lives = config.get_player_lives()
-
-    game_state: GameState = GameState(width, height, difficulty, player_lives)
-    game_logic: GameLogic = GameLogic(game_state, custom_settings)
+        game_state: GameState = GameState(width, height, difficulty, player_lives)
+        game_logic: GameLogic = GameLogic(game_state, custom_settings)
+    else:
+        game_state: GameState = GameState(width, height, difficulty)
+        game_logic: GameLogic = GameLogic(game_state)
 
     scores: ScoreManager = ScoreManager(ScoreService(connection))
     ui_manager: UIManager = UIManager(game_state, scores)

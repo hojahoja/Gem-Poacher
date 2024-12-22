@@ -169,12 +169,12 @@ class GameLogic:
         level: int = self._game_state.level
         threshold, enemy_speed, gem_count = self._progression_options[self._game_state.difficulty]
 
-        if level >= threshold[0]:
-            self._game_state.spawn_enemy(enemy_speed[0])
-            self._game_state.populate_level_with_gems(gem_count[0] + level)
-        elif level >= threshold[1]:
+        if level >= threshold[1]:
             self._game_state.spawn_enemy(enemy_speed[1])
             self._game_state.populate_level_with_gems(gem_count[1] + level)
+        elif level >= threshold[0]:
+            self._game_state.spawn_enemy(enemy_speed[0])
+            self._game_state.populate_level_with_gems(gem_count[0] + level)
         else:
             self._game_state.spawn_enemy(speed=1)
             self._game_state.populate_level_with_gems(5)
@@ -187,9 +187,8 @@ class GameLogic:
     def reset_game(self):
         self._game_state.reset_game_state()
         self._invulnerability_period_start = 0
-        self.player.vulnerable = True
-        self.player: Player = self._game_state.player
-        self.enemies: Group[Enemy] = self._game_state.enemies
+        self.player = self._game_state.player
+        self.enemies = self._game_state.enemies
 
     def update(self):
         """Activate all the functionality inside this class

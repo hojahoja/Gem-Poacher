@@ -8,14 +8,22 @@ class Clock:
         _clock: Instance of pygame.time.Clock.
     """
 
-    def __init__(self):
+    def __init__(self, fps: int = 120):
         """Initialize the clock."""
-        self._clock = pygame.time.Clock()
+        self._fps = fps
+        self._clock: pygame.time.Clock = pygame.time.Clock()
 
-    def tick(self, fps: int):
+    @property
+    def fps(self):
+        return self._fps
+
+    def set_framerate(self, fps: int):
+        self._fps = fps
+
+    def tick(self):
         """Gives access to pygame.time.clock.tick method.
 
         Args:
             fps: Set how many ticks per second.
         """
-        self._clock.tick(fps)
+        self._clock.tick(self._fps)

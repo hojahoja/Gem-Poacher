@@ -63,9 +63,9 @@ A rough concept of the main game view
 ### Other functionality
 
 - [x] The game will form a score based on gems collected.
-- [ ] The player can enter their name at the end of the game. Name and score will be
+- [x] The player can enter their name at the end of the game. Name and score will be
   kept in a database.
-- [ ] You can see the top scorers after the game has ended.
+- [x] You can see the top scorers after the game has ended.
 
 ## Further development
 
@@ -73,7 +73,7 @@ Some ideas for extending the game once the basic functionality is working:
 
 - [ ] Different types of gems with different score values.
 - [ ] Different types of enemies with altered movement behaviors.
-- [ ] Difficulty settings: Either allow some control over enemy behavior or create
+- [x] Difficulty settings: Either allow some control over enemy behavior or create
   different difficulty presets with adjusted movement speeds and spawns rates
   for enemies.
 - [ ] Real stages: A stage will have different visual styles (background images) and
@@ -81,7 +81,6 @@ Some ideas for extending the game once the basic functionality is working:
   stage.
 
 - [ ] Player profiles
-
     - [ ] Instead of writing their name at the end players can create profiles.
     - [ ] A profile will track games played, time played, all scores, furthest stage
       reached and potentially any other information

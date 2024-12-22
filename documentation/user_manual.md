@@ -8,9 +8,9 @@
 4. [Game Over Screen](#game-over-screen)
 5. [Basic controls](#basic-controls)
 
-Get the latest version of from [releases](https://github.com/hojahoja/Gem-Poacher/releases).
-
 ## Installing and running the game
+
+Get the latest version of from [releases](https://github.com/hojahoja/Gem-Poacher/releases).
 
 Unpack the downloaded and run these commands inside Powershell or your preferred shell on Linux. \
 [Poetry](https://python-poetry.org/docs/) has to be installed for these to work
@@ -30,7 +30,7 @@ create a high score database according to the filename set inside the
 `config.ini`.
 
 > [!CAUTION]
-> Running this command on an already existing on an already initialized database will wipe it clean.\
+> Running this command on an already existing and initialized database will wipe it clean.\
 > Only run this command if you want to clear you current database or create a new one.
 
 ```sh
@@ -62,10 +62,10 @@ Basic configuration
 You can adjust difficulty settings. Difficulty settings adjust
 the amount of points you get for each gem. You can't earn points in Custom difficulty.
 
-Easy $ = \times 1$\
-Medium $ = \times 2$\
-Hard $ = \times 3$\
-Ludicrous $ = \times 4$
+Easy $= \times 1$\
+Medium $= \times 2$\
+Hard $= \times 3$\
+Ludicrous $= \times 4$
 
 The name of the difficulty in the setting file is not case-sensitive.
 
@@ -182,7 +182,7 @@ You can start typing your name when you see the blinking cursor in the textbox:
 
 
 > [!NOTE]
-> Your score won't be saved if you don't enter a name.
+> Your score won't be saved if you don't enter a name or scored 0 points.
 
 ### When text entry box isn't visible
 
