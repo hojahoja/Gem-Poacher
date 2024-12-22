@@ -117,6 +117,23 @@ version of Cubbli Linux to ensure that base functionality works there.
 All the checked functionality in [requirements specification](requirements_specification.md)
 has been tested and verified to be functional with manual testing.
 
+## Linting and type hints
+
+While linting and type hinting are not tests per se both of these together help with keeping
+the integrity of the code up. Almost all the code is type hinted which together with the IDE's
+pylint plugin warns about incorrectly used variables on the fly.
+
+### Pylint exceptions
+
+No "reasonable" pylint Errors are left out. One pylint: disable comment was used in the main script
+file because pylint keeps incorrectly warning about import order. The two rows of code
+above the imports are there for a reason which is a scenario the given pylint spec doesn't seem to
+take into consideration. Another. Pylint disable is used inside the config manager.
+Pylint warns about using too generalized Exception handling however the Exception is being
+passed down to an exception handler method which goes over common exceptions with specified
+ways of handling them. Exceptions that are not part of the exception handler are raised again
+so there are no issues with too generalized Exception handling, however, pylint doesn't know this.
+
 ## Issues
 
 The configuration file is somewhat lacking and some of the options inside the configuration do not
