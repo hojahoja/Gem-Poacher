@@ -1,43 +1,71 @@
 @startuml
 ' Packages
 package "sprites" {
-        class "Player"
-        class "Enemy"
-        class "Gem"
+    class "Player"
+    class "Enemy"
+    class "Gem"
 }
 
 package "game_engine" {
-        class "GameLoop"
-        class "EventQueue"
-        class "Clock"
-        class "GameState"
-        class "GameLogic"
+    class "GameLoop"
+    class "EventQueue"
+    class "Clock"
+    class "GameState"
+    class "GameLogic"
 }
 
 package "utilities" {
-        class "image_loader"
+    class "constants"
+    class "ConfigManager"
+    class "Score"
+    class "ScoreManager"
 }
 
-package "user_interface" {
-        class "Renderer"
-        class "UITextController"
+package "ui" {
+    class "image_handler"
+    class "Renderer"
+    class "UITextController"
+    class "TextInputBox"
+    class "TextObject"
+    class "UIManager"
 }
+
+package "database" {
+    class "ScoreService"
+    class "database_connection"
+}
+
+
 
 ' Relationships
-image_loader <-- Player
-image_loader <-- Enemy
-image_loader <-- Gem
+Score <-- ScoreManager
+ScoreService <-- ScoreManager
+database_connection <-- ScoreService
+ConfigManager <-- database_connection
+
+TextObject <-- TextInputBox
+TextObject <-- UITextController
+ScoreManager <-- UITextController
+UITextController <-- UIManager
+TextInputBox <-- UIManager
+UIManager <-- Renderer
+image_handler <-- UIManager
+image_handler <-- TextInputBox
+image_handler <-- Player
+image_handler <-- Enemy
+image_handler <-- Gem
+
+GameState <-- UITextController
+GameState <-- UIManager
 Player <-- GameState
 Enemy <-- GameState
 Gem <-- GameState
-GameState <-- GameLogic
-GameLogic <-- GameLoop
-Clock <-- GameLoop
-GameState <-- UITextController
-UITextController <-- Renderer
-GameState <-- Renderer
+Player <-- GameLogic
+Enemy <-- GameLogic
+
 Renderer <-- GameLoop
+Clock <-- GameLoop
 EventQueue <-- GameLoop
-
-
+GameLogic <-- GameLoop
+GameState <-- GameLogic
 @enduml

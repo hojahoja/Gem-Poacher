@@ -60,10 +60,10 @@ class GameLoopTest(unittest.TestCase):
         self.game_logic.start_new_game.reset_mock()
         self.game_loop.run()
 
-        with self.subTest("game_logic.reset_game() is called_once"):
+        with self.subTest("game_logic.reset_game() is called once"):
             self.game_logic.reset_game.assert_called_once()
 
-        with self.subTest("game_logic.start_new_game() is called_once"):
+        with self.subTest("game_logic.start_new_game() is called twice"):
             self.game_logic.start_new_game.assert_has_calls([call(), call()])
 
     def test_loop_stops_when_esc_is_pressed(self):

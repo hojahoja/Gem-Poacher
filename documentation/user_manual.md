@@ -26,12 +26,12 @@ poetry install
 ### Initialize database
 
 This will also create a config file if one doesn't exist and then
-create a high score database according to the filename set inside the
+create a high-score database according to the filename set inside the
 `config.ini`.
 
 > [!CAUTION]
 > Running this command on an already existing and initialized database will wipe it clean.\
-> Only run this command if you want to clear you current database or create a new one.
+> Only run this command if you want to clear your current database or create a new one.
 
 ```sh
 Poetry run invoke create-databse
@@ -45,9 +45,9 @@ poetry run invoke start
 
 ### Troubleshooting: Recreate config.
 
-If you run into issues with the config file or just want to regenerate default
+If you run into issues with the config file or just want to regenerate the default
 settings you can either delete the `config.ini` in `src/config` and run the game.
-or you can run:
+Or you can run:
 
 ```sh
 Poetry run invoke create-config
@@ -77,12 +77,12 @@ difficulty = MEDIUM
 
 ### Database settings
 
-The Database is used for storing player high scores. The file is found inside
+The Database is used for storing players' high scores. The file is found inside
 `src/database`.
 
-You can choose the database name by adjusting the name with database path.
-Name and extension don't really matter as long as there is it in some kind of format
-with a dot in the middle. Make sure to run `Poetry run invoke create-databse` if you
+You can choose the database name by adjusting the name in the ´database path´ variable.
+Name and extension don't really matter as long as is it in some kind of format
+with a dot in the middle. Make sure to run `Poetry run invoke create-database` if you
 want to create a new database.
 
 If you just want to rename an old functioning one
@@ -91,7 +91,7 @@ Don't run `create-database` on an already usable database unless you want to wip
 
 ```ini
 [DATABASE SETTINGS]
-; filename of the db file in src/database folder
+; filename of the DB file in src/database folder
 database path = score.db
 ```
 
@@ -104,15 +104,15 @@ is explained in the comments inside the ini file:
 [CUSTOM DIFFICULTY SETTINGS]
 ; these settings will be used if you choose custom difficulty in game settings
 ; thresholds change something after reaching the specified level
-; set first threshold to 1 if you want these values from the start of the game
+; set the first threshold to 1 if you want these values from the start of the game
 dynamic difficulty first threshold = 2
 dynamic difficulty second threshold = 6
-; how values changes after reaching specific thresholds
-; default value before reaching first threshold is 1
+; how values change after reaching specific thresholds
+; default value before reaching the first threshold is 1
 enemy speed threshold 1 = 2
 enemy speed threshold 2 = 3
 ; 5 gems are spawned before a threshold is reached
-; after the first threshold gems spawn at rate of level + value set
+; after the first threshold gems spawn at the rate of level + value set
 gem spawn rate threshold 1 = 4
 gem spawn rate threshold 2 = 4
 player lives = 9
@@ -120,7 +120,7 @@ player lives = 9
 
 ## Gameplay
 
-![image of main game screen](images/base_game.png)
+![image of the main game screen](images/base_game.png)
 The goal of the game is to collect the little gems on the screen and collect points
 while avoiding enemies. Move the player character toward a gem with your mouse to
 pick it up. Each collected game will give you points. The value is adjusted depending
@@ -157,8 +157,8 @@ The game ends when the life counter turns to 0.
 
 ![picture of scoreboard](images/game_over.png)
 
-After the game ends you will see the scoreboard and a text entry box which allows you to
-enter your name. Highest score gets the first place. New scores that have the same point value
+After the game ends you will see the scoreboard and a text entry box that allows you to
+enter your name. The highest score gets the first place. New scores that have the same point value
 as an older score will always be positioned below the older score.
 
 ## Basic controls
@@ -176,15 +176,15 @@ You move the player just by moving the mouse.
 
 You can start typing your name when you see the blinking cursor in the textbox:
 
-<kbd>⏎ ENTER</kbd> Add your name and score after typing it or remove text entry box if the textfield is empty.
+<kbd>⏎ ENTER</kbd> Add your name and score after typing it or remove the text entry box if the text field is empty.
 
 <img alt="Enter Your Name textbox" src="images/name_entry.png" width="396" height="81" />
 
 
 > [!NOTE]
-> Your score won't be saved if you don't enter a name or scored 0 points.
+> Your score won't be saved if you don't enter a name or score 0 points.
 
-### When text entry box isn't visible
+### When the text entry box isn't visible
 
 <kbd>F2</kbd> or <kbd>→</kbd> Next scoreboard page.
 

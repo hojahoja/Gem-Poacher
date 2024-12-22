@@ -10,14 +10,30 @@ characters on the screen.
 
 Initially, there will not be any user accounts. Score tracking and a "top
 players" list might later be implemented with player profiles that anyone can
-create.
+create. As of now, players are just unique identifiers inside the high-score database.
+Each player's name is connected to their score in the data, but there is no visual
+representation of this in the game yet.
 
 ## User interface
 
+> [!NOTE]
+> This section about the user interface is here as a reference point
+> in case I want to create the missing features later after the course is over.
+
 The main menu will be the first view. The game will start when the player clicks
-"New Game". The game over-menu will come up when the lose condition of the game
+"New Game". The game over-menu will come up when the loss condition of the game
 is met. Options menu will be included if there is time to create some adjustable
-settings. ![Views](images/views.png)
+settings.
+
+Game Window and Game Over Screen are implemented, but Main Menu and Options
+Menu are not. The game will directly jump into the Game Window when started.
+The player can quit the game by pressing <kbd>ESC</kbd> and restart it
+by pressing <kbd>F4</kbd>.
+
+There are some adjustable settings in the game, but they are only accessible by manually
+editing a `config.ini` file.
+
+![Views](images/views.png)
 
 ## Game window
 
@@ -34,7 +50,7 @@ A rough concept of the main game view
     - [x] Replaces the mouse cursor inside the game window and can be moved with the
       mouse.
     - [x] Touches gems that are visible on the screen to collect points.
-    - [x] Has a set number of lives which can be lost one by one when taking damage.
+    - [x] Has a set number of lives that can be lost one by one when taking damage.
     - [x] Takes damage from touching an enemy character or the screen borders.
     - [x] Has a short invulnerability window after taking damage. The character will
       appear opaque when invulnerable.
@@ -53,7 +69,7 @@ A rough concept of the main game view
 
 - [x] Basic logic
 
-    - [x] Each stage will load with collectible gem.
+    - [x] Each stage will load with collectible gems.
     - [x] Starts with a few slowly moving enemies.
     - [x] When the player collects all visible coins, the next stage begins and the
       game will spawn another enemy.
@@ -63,9 +79,16 @@ A rough concept of the main game view
 ### Other functionality
 
 - [x] The game will form a score based on gems collected.
-- [x] The player can enter their name at the end of the game. Name and score will be
+- [x] The player can enter their name at the end of the game. The name and score will be
   kept in a database.
 - [x] You can see the top scorers after the game has ended.
+
+### User Interface
+
+- [x] End game screen.
+- [x] Gameplay screen.
+- [ ] Start menu.
+- [ ] Options menu.
 
 ## Further development
 
@@ -74,7 +97,7 @@ Some ideas for extending the game once the basic functionality is working:
 - [ ] Different types of gems with different score values.
 - [ ] Different types of enemies with altered movement behaviors.
 - [x] Difficulty settings: Either allow some control over enemy behavior or create
-  different difficulty presets with adjusted movement speeds and spawns rates
+  different difficulty presets with adjusted movement speeds and spawn rates
   for enemies.
 - [ ] Real stages: A stage will have different visual styles (background images) and
   different types of gems and enemies that are specifically associated with the
@@ -88,5 +111,5 @@ Some ideas for extending the game once the basic functionality is working:
       listed above.
 
 - [ ] Allowing the player to change the game resolution.
-- [ ] Decoupling Game speed from game clock and allowing players to select FPS.
+- [ ] Decoupling Game speed from the game clock and allowing players to select FPS.
 - [ ] Sound effects.

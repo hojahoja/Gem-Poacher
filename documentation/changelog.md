@@ -2,14 +2,14 @@
 
 ## Week 3
 
-- Created basic structure for the game.
+- Created a basic structure for the game.
     - GameLoop takes care of running the main game.
     - Level class has the basic information and logic of the game.
-    - Level, Clock, EventQueue and Render are added to GameLoop as parameters.
+    - Level, Clock, EventQueue, and Render are added to GameLoop as parameters.
 - Added Player sprite.
-    - Can be moved with the mouse, has lives and can take damage.
-- Added some tests for player.
-- Added some tests for level.
+    - Can be moved with the mouse, has lived, and can take damage.
+- Added some tests for player class.
+- Added some tests for level class.
 
 ## Week 4
 
@@ -24,15 +24,15 @@
 
 ## Week 5
 
-- Files responsible for gameplay mechanics are moved into game_engine package.
+- Files responsible for gameplay mechanics are moved into the game_engine package.
 - Tests for all classes currently in game_engine.
 - Points collected are now recorded.
-- Text rendering with a controller class and updating text based on game state.
-    - Lives are rendered on screen and updated in real time.
+- Text rendering with a controller class and updating text based on the game state.
+    - Lives are rendered on screen and updated in real-time.
     - Same for points when gems are collected.
     - Level text is rendered, but the feature is not yet implemented.
-- Player becomes invulnerable to damage for a set period of time after taking damage.
-    - Player image becomes transparent during the invulnerability period.
+- The player becomes invulnerable to damage for a set time after taking damage.
+    - The player image becomes transparent during the invulnerability period.
 - Enemy character:
     - Random spawn point.
     - Move diagonally around the game area.
@@ -45,19 +45,19 @@
 
 - Every class has a Docstring.
 - Majority of engine and sprite tests covered.
-- All features under gameplay section of req specification implemented.
+- All features under the gameplay section of the req specification implemented.
 - Difficulty settings:
     - Only accessible through code variables (for now).
     - Affects gem and enemy spawn rates and initial player lives
 - Level progression:
     - Spawn new enemies and gems upon completing a level.
     - Level progression varies with different difficulty settings.
-    - UI tracking for current level
+    - UI tracking for the current level
 - New Game (reset game state) feature.
     - GameLogic and GameState classes have now features for initializing a new game on demand.
 - Game Over:
-    - Game ends after all player lives are lost.
-    - Currently just a black screen with new game and quit game options.
+  -The game ends after all player lives are lost.
+    - Currently just a black screen with a new game and quit game option.
 
 ## Week 7
 
@@ -68,20 +68,20 @@
     - Custom difficulty options.
     - Player lives.
 - Different look for endgame screen.
-- TextInputBox UI-component in endgame screen.
+- TextInputBox UI component in the endgame screen.
 - Renderer and split into render and Ui manager.
 - Database for storing scores.
     - Get and add players and scores.
-    - User can choose the database filename in the config file.
+    - The user can choose the database filename in the config file.
 - Game Over screen.
     - Fully functional textbox for inputting player names.
-    - Stores names and score in the database.
+    - Stores names and score information in the database.
     - Pagination for score pages (shows 10 at a time).
 - Invoke task for creating a configuration file and score database.
 - Finally refactored everything into logical packages.
     - UI files are all under ui package (except sprites).
-    - Database and database management files under database package.
+    - Database and database management files under the database package.
     - Src will only directly contain .py files that are intended for running from the outside.
-- Made Clock class keep FPS information to support changing FPS in configurations down the line.
+- Made Clock class keep FPS information to support changing FPS in configuration file down the line.
 - Added tests to most new features in game_engine.
-- Added tests to some features of configuration manager (uses .ini file) and score manager (uses database).
+- Added tests to some features of configuration manager (uses .ini file) and score manager (uses a database).

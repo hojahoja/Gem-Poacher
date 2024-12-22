@@ -10,7 +10,6 @@ class EnemyTest(unittest.TestCase):
         self.image_handler_patcher = patch("sprites.enemy.image_handler")
         self.mock_image_handler = self.image_handler_patcher.start()
         self.enemy = sprites.Enemy(speed=3)
-        print("MOCK", self.enemy._frames)
 
     def tearDown(self):
         self.image_handler_patcher.stop()

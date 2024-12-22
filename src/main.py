@@ -1,6 +1,16 @@
+import os
 import sys
 from sqlite3 import Connection
 
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+os.environ["SDL_AUDIODRIVER"] = "dsp"
+
+# The given linter file makes it so that pylint keeps whining about wrong import order.
+# However, the os.environ calls need to happen before pygame is imported for them to work.
+# SDL AUDIODRIVER in particular fixes annoying error caused by pygame
+# trying to use the ALSA driver on linux.
+
+# pylint: disable=wrong-import-position
 import pygame
 
 from database.database_connection import get_database_connection
@@ -10,6 +20,8 @@ from ui.renderer import Renderer
 from ui.ui_manager import UIManager
 from utilities.config_manager import ConfigManager
 from utilities.score_manager import ScoreManager
+
+# pylint: enable=wrong-import-position
 
 type ProgressionLogic = tuple[tuple[int, int], tuple[int, int], tuple[int, int]]
 type Components = tuple[GameLogic, Renderer, Clock, EventQueue]

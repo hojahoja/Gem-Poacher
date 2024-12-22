@@ -13,11 +13,12 @@ A retro review of Jewel Thief by LazyGameReviews:
 
 ## Documentation
 
+[User Manual](documentation/user_manual.md) \
 [Requirements Specification](documentation/requirements_specification.md) \
-[Work Time Log](documentation/work_time_log.md) \
-[Changelog](documentation/changelog.md) \
 [Architecture](documentation/architecture.md) \
-[User Manual](documentation/user_manual.md)
+[Testing Documentation](documentation/testing.md) \
+[Changelog](documentation/changelog.md) \
+[Work Time Log](documentation/work_time_log.md)
 
 ## Python Version
 
@@ -80,7 +81,12 @@ poetry run invoke create-config
 
 ### Database
 
-This will recreate the database (note all high scores will be lost)
+This will create or recreate the database listed in the config. A new config will be created
+if it doesn't already exist and the database will use the default name.
+
+> [!CAUTION]
+> Running this command on an already existing and initialized database will wipe it clean.\
+> Only run this command if you want to clear you current database or create a new one.
 
 ```sh
 poetry run invoke create-database

@@ -16,7 +16,7 @@ class ConfigManager:
 
     def _set_default_configs(self):
         self._config["GAME SETTINGS"] = {
-            "; Currently width, height and FPS dont do anything": None,
+            "; Currently width, height, and FPS don't do anything": None,
             "width": "1280",
             "height": "720",
             "fps": "120",
@@ -27,7 +27,7 @@ class ConfigManager:
     def _set_database_configs(self):
 
         self._config["DATABASE SETTINGS"] = {
-            "; filename of the db file in src/database folder": None,
+            "; filename of the DB file in src/database folder": None,
             "database path": "score.db"
         }
 
@@ -35,15 +35,15 @@ class ConfigManager:
         self._config["CUSTOM DIFFICULTY SETTINGS"] = {
             "; These settings will be used if you choose custom difficulty in GAME SETTINGS": None,
             "; Thresholds change something after reaching the specified level": None,
-            "; Set first threshold to 1 if you want these values from the start of the game": None,
+            "; Set the first threshold to 1 if you want these values from start of the game": None,
             "dynamic difficulty first threshold": "2",
             "dynamic difficulty second threshold": "6",
-            "; How values changes after reaching specific thresholds": None,
-            "; Default value before reaching first threshold is 1": None,
+            "; How values change after reaching specific thresholds": None,
+            "; Default value before reaching the first threshold is 1": None,
             "enemy speed threshold 1": "2",
             "enemy speed threshold 2": "3",
             "; 5 gems are spawned before a threshold is reached": None,
-            "; After the first threshold gems spawn at rate of level + value set": None,
+            "; After the first threshold gems spawn at the rate of level + value set": None,
             "gem spawn rate threshold 1": "4",
             "gem spawn rate threshold 2": "4",
             "player lives": "9"
