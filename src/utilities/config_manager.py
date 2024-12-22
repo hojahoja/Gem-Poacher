@@ -9,12 +9,29 @@ from utilities import constants
 # but pylint doesn't know that.
 # pylint: disable=broad-exception-caught
 class ConfigManager:
+    """ Manages the configuration settings for the game.
+
+    This class handles the creation and retrieval, of configuration settings
+    related to the game's general settings, database configurations, and
+    custom difficulty options. It reads and writes to a `.ini` configuration file,
+    defining default values and extending its configuration capabilities for
+    customizations.
+
+    Attributes:
+        self._config An instance of `ConfigParser` used to manage and
+            parse configuration settings.
+        self._config_path The file path object for the configuration file where
+            settings are stored.
+    """
 
     def __init__(self):
+        """Initializes the ConfigManager class and sets path to the configuration file."""
         self._config: ConfigParser = ConfigParser(allow_no_value=True)
         self._config_path: Path = Path(constants.Folder.CONFIG_DIR) / "config.ini"
 
     def _set_default_configs(self):
+        """Sets the default configurations for the game, including base game"""
+
         self._config["GAME SETTINGS"] = {
             "; Currently width, height, and FPS don't do anything": None,
             "width": "1280",
@@ -25,6 +42,7 @@ class ConfigManager:
         }
 
     def _set_database_configs(self):
+        """Sets the default configurations for the database file"""
 
         self._config["DATABASE SETTINGS"] = {
             "; filename of the DB file in src/database folder": None,
@@ -32,6 +50,8 @@ class ConfigManager:
         }
 
     def _set_difficulty_settings(self):
+        """Sets the default configurations for the custom difficulty settings"""
+
         self._config["CUSTOM DIFFICULTY SETTINGS"] = {
             "; These settings will be used if you choose custom difficulty in GAME SETTINGS": None,
             "; Thresholds change something after reaching the specified level": None,
@@ -50,7 +70,15 @@ class ConfigManager:
         }
 
     def create_config(self, force: bool = False):
+        """Creates a configuration file with default, database, and difficulty sections.
 
+        If one does not already exist or if the `force` parameter is set to True.
+        The configuration is written to the specified file path.
+
+        Args:
+            force: If True, forces the creation of a new configuration file
+                even if one already exists. Defaults to False.
+        """
         if not self._config_path.exists() or force:
             self._set_default_configs()
             self._set_database_configs()
@@ -64,6 +92,19 @@ class ConfigManager:
                 print(repr(exception))
 
     def get_database_path(self) -> None | str:
+        """Gets the database file path from the configuration file.
+
+        This method reads the database configuration settings from the provided
+        configuration file path and constructs the full database file path based
+        on the folder defined in `constants.Folder.DATABASE_DIR`.
+
+        Returns:
+            Returns the constructed database path as a string if
+            it is successfully retrieved, or None if an error occurs.
+
+        Raises:
+            ConfigParser errors are handled inside the exception handler.
+        """
         path: None | str = None
         try:
             self._config.read(self._config_path)
@@ -75,6 +116,23 @@ class ConfigManager:
         return path
 
     def get_difficulty(self) -> int:
+        """Gets the difficulty setting from the configuration file.
+
+        If the configuration is invalid or an error occurs, defaults to the medium difficulty.
+        The method reads the configuration file to extract the difficulty setting
+        under the "GAME SETTINGS" section of the provided config file path. It
+        translates the difficulty setting into its corresponding numerical value.
+
+        Raises:
+            KeyError: If the retrieved difficulty setting does not correspond to
+                any valid difficulty level defined in constants.Difficulty.
+            Exception: For any other exceptions during configuration file reading,
+                handled by `_config_exceptionhandler`.
+
+        Returns:
+            The difficulty level represented as a numerical value.
+        """
+
         difficulty: int = constants.Difficulty.MEDIUM
 
         try:
@@ -88,7 +146,19 @@ class ConfigManager:
             print("Defaulting to Medium difficulty")
         return difficulty
 
-    def get_custom_difficulty_settings(self):
+    def get_custom_difficulty_settings(self) -> tuple[tuple[int, int]] | None:
+        """Retrieves configuration for custom difficulty settings from the config file.
+
+        And parses the config into a list of tuples containing integer values. If the settings
+        are incomplete or an exception occurs during retrieval the method returns None and
+        informs the user that medium settings are being used.
+
+
+        Returns:
+            A tuple containing a list of tuples
+            with integers representing the custom difficulty settings, or None if no
+            valid settings are available.
+        """
         setting: list[tuple[int, int]] = []
 
         try:
@@ -109,7 +179,18 @@ class ConfigManager:
         return tuple(setting) if setting else None
 
     def get_player_lives(self) -> int:
-        lives: int = 9
+        """ Retrieves the number of lives a player has based on the configuration settings.
+
+        This method reads the configuration file to determine the player's lives as defined in the
+        "player lives" setting under the "CUSTOM DIFFICULTY SETTINGS" section. If the configuration
+        file is not accessible or there is an error retrieving the setting,
+        a default value of 5 lives
+        is returned.
+
+        Returns:
+            The number of lives for the player based on the configuration or default value.
+        """
+        lives: int = 5
         try:
             self._config.read(self._config_path)
             lives = self._config.getint("CUSTOM DIFFICULTY SETTINGS", "player lives")
@@ -120,6 +201,19 @@ class ConfigManager:
 
 
 def _config_exceptionhandler(exception: Exception):
+    """ Handles exceptions raised during configuration processing.
+
+    Provides appropriate messages for specific exception types, including the handling of IOError,
+    configparser errors, and ValueError related to invalid integers. Ensures clarity
+    in error reporting and user awareness of configuration defaults.
+
+    Args:
+        The exception object to be handled.
+
+    Raises:
+        Exception: For any other exception not being specifically handled,
+    """
+
     try:
         raise exception
     except IOError:

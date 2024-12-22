@@ -38,6 +38,19 @@ def load_image(filename: str, alpha: bool = True, size: tuple[int, int] | None =
 
 
 def scale_image(image: Surface, scale: float) -> Surface:
+    """Scales an image to a new size based on the given scale factor.
+
+    This function calculates the new dimensions of the image by multiplying the
+    current width and height of the image by the specified scale factor. The scaled
+    image is then returned.
+
+    Args:
+        image: The original image to be scaled.
+        scale: The scale factor to resize the image by.
+
+    Returns:
+        Surface: The scaled image with adjusted dimensions.
+    """
     new_width: int = int(image.get_width() * scale)
     new_height: int = int(image.get_height() * scale)
     return pygame.transform.scale(image, (new_width, new_height))

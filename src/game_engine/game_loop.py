@@ -14,6 +14,7 @@ class GameLoop:
         self._renderer: Instance of the Renderer class.
         self._clock: Instance of the Clock class.
         self._event_queue: Instance of the EventQueue class.
+        self._running: Boolean value indicating whether the game loop is running.
     """
 
     def __init__(self, game_logic: GameLogic, renderer: Renderer, clock: Clock,
@@ -33,6 +34,7 @@ class GameLoop:
         calling clock ticks and updating the game logic and renderer. breaks the loop
         on quit event.
         """
+
         self._game_logic.start_new_game()
         while True:
 
@@ -48,6 +50,13 @@ class GameLoop:
                 self._game_logic.update()
 
     def _pygame_event_handler(self):
+        """Handles pygame simple pygame events and delegates rest to ui components.
+
+        This method processes events retrieved from the event queue and performs
+        appropriate actions such as moving the player, exiting the game, resetting the
+        game, or distributing the event to the user interface for handling.
+        """
+
         for event in self._event_queue.get():
             if event.type == pygame.MOUSEMOTION:
                 self._game_logic.move_player(event.pos[0], event.pos[1])

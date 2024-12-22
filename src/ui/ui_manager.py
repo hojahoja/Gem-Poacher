@@ -8,8 +8,8 @@ from pygame import Surface
 from ui import ui_text
 from ui.text_box import TextInputBox
 from ui.ui_text import UITextController
-from utilities import image_handler
 from utilities import constants
+from utilities import image_handler
 from utilities.score_manager import ScoreManager
 
 if TYPE_CHECKING:
