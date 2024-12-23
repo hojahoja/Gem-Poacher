@@ -92,6 +92,26 @@ if it doesn't already exist and the database will use the default name.
 poetry run invoke create-database
 ```
 
+### Building binaries
+
+These commands should be run on a freshly cloned repository so that
+pyinstaller won't bundle any unnecessary dependencies.
+
+These are for building a runnable binary. The filetype will be different.
+whether these commands are run on Linux or Windows (.exe)
+
+Install the poetry environment using:
+
+```sh
+poetry install --without dev
+```
+
+Then run:
+
+```sh
+poetry run invoke build-binary
+```
+
 ## Information about the original version
 
 This game was originally my final submission for the

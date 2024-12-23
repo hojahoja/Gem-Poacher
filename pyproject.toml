@@ -6,10 +6,12 @@ authors = ["hojahoja"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.12,<3.14"
 pygame = "^2.6.1"
 invoke = "^2.2.0"
 
+[tool.poetry.group.build.dependencies]
+pyinstaller = "^6.11.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

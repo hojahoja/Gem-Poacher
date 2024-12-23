@@ -55,3 +55,15 @@ def create_config(ctx):
 @task
 def create_database(ctx):
     platform_agnostic_command(ctx, "python src/initialize_database.py")
+
+
+@task(create_database)
+def build_binary(ctx):
+    command = "pyinstaller --onedir --windowed"
+    if platform.system() == "Windows":
+        command += " --icon=src/assets/icon/gem_poacher.ico"
+    command += " --add-data=src/assets;assets"
+    command += " --add-data=src/database/score.db;database"
+    command += " --add-data=src/config/config.ini;config"
+    command += " src/main.py"
+    platform_agnostic_command(ctx, command)
